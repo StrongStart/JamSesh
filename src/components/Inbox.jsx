@@ -1,6 +1,7 @@
 import React from 'react';
 import InboxMessage from './InboxMessage.jsx';
 import firebase from 'firebase';
+import Messenger from './Messenger.jsx';
 
 class Inbox extends React.Component {
   constructor(props) {
@@ -8,6 +9,7 @@ class Inbox extends React.Component {
     this.state = {
       messages: [],
     };
+    console.log(this.props.firebaseApp);
     const user = firebase.auth().currentUser.displayName;
     console.log(user, 'test')
     firebase.database().ref(`/messages/${user}`)
@@ -51,6 +53,7 @@ class Inbox extends React.Component {
               {messages.map(el => <InboxMessage item={el} />)}
           </tbody>
         </table>
+        <Messenger className="center-block" firebaseApp={this.props.firebaseApp} />
       </div>
     );
   }

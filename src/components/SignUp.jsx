@@ -3,7 +3,6 @@ import firebase from 'firebase';
 import Validation from 'react-validation';
 import validator from 'validator';
 import { Link, browserHistory } from 'react-router';
-import Logo from './jamsesh.png';
 
 Object.assign(Validation.rules, {
   required: {
@@ -115,7 +114,7 @@ class SignUp extends React.Component {
           Already a member? <Link to="sign-in">Sign in!</Link>
         </div>
         <div>
-          <img alt="JamSesh" style={this.imgStyle} className="col-md-4 pull-right" src={Logo} />
+          <img alt="JamSesh" style={this.imgStyle} className="col-md-4 pull-right" src="http://i67.tinypic.com/2ld9iza.png" />
         </div>
       </div>
     );

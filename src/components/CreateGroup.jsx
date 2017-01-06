@@ -1,9 +1,8 @@
 import React from 'react';
 import firebase from 'firebase';
 import Validation from 'react-validation';
-import Logo from './jamsesh.png';
-
-
+// import Navbar from './Navbar.jsx';
+// import validator from 'validator';
 import { browserHistory } from 'react-router';
 Object.assign(Validation.rules, {
   required: {
@@ -34,16 +33,12 @@ class CreateGroup extends React.Component {
     };
     this.props.firebaseApp.database().ref(`groups/${event.target.name.value}`).push(newGroup);
     browserHistory.push('/');
-    this.imgStyle = {
-      'max-width': '100%',
-      'max-height': '100%',
-    };
   }
   render() {
     return (
       <div className="container">
         <h3>Create Group</h3>
-        <Validation.components.Form onSubmit={this.handleSubmit} className="col-md-8">
+        <Validation.components.Form onSubmit={this.handleSubmit}>
           <div className="form-group">
             <Validation.components.Input
               className="form-control"
@@ -103,9 +98,6 @@ class CreateGroup extends React.Component {
             Submit</Validation.components.Button>
           </div>
         </Validation.components.Form>
-        <div>
-          <img alt="JamSesh" style={this.imgStyle} className="col-md-4 pull-right" src={Logo} />
-        </div>
       </div>
     );
   }
