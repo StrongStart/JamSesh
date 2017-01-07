@@ -34,9 +34,15 @@ class ChatRoom extends Component {
     })
   }
 
+  add(event) {
+         if(event.keyCode === 13){
+           this.submitMessage(event);
+         }
+  }
+
   submitMessage(event){
     console.log(`submitMessage: ${this.state.message}`)
-    let curUser = ''
+    let curUser = '';
 
     firebase.auth().currentUser ? curUser = firebase.auth().currentUser.displayName : curUser = 'anonymous'
 
@@ -48,6 +54,7 @@ class ChatRoom extends Component {
 
     firebase.database().ref('messager/' + nextMessage.id).set(nextMessage)
 
+    this.state.message = ''
     // let list = Object.assign([], this.state.messages)
     // list.push(nextMessage)
     // this.setState({
@@ -58,17 +65,16 @@ class ChatRoom extends Component {
   render () {
     const currentMessage = this.state.messages.map((message, i) => {
       return (
-        <li key={message.id}>{message.user}: {message.text}</li>
+        <div key={message.id}><strong>{message.user}</strong>: {message.text}</div>
       )
     });
     return (
       <div>
-        <ul>
-          {currentMessage}
-        </ul>
-        <input onChange={this.updateMessage} type="text" placeholder="Message" />
-        <br />
-        <button onClick={this.submitMessage}>Submit Message</button>
+        <div>
+          {currentMessage.slice(-10)}
+        </div>
+        <input onChange={this.updateMessage} onKeyDown={this.add.bind(this)} type="text" placeholder="Sexy Placeholder" value={this.state.message}/>
+        <button onClick={this.submitMessage}>Send</button>
       </div>
     )
   }

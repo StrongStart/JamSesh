@@ -45,9 +45,11 @@ class Home extends React.Component {
           <Search runSearch={this.runSearch} />
         </div>
         <div className="col-md-8">
-          <h4>Message</h4>
+          <h4>JamSesh Jive Turkey Chat</h4>
           {/* <Messenger firebaseApp={this.props.firebaseApp} sendTo={this.state.sendTo} /> */}
-          <ChatRoom />
+          <div class="row">
+            <ChatRoom />
+          </div>
         </div>
         <div className="col-md-4">
           <img style={this.imgStyle} className="image-responsive" src="http://i67.tinypic.com/2ld9iza.png" />

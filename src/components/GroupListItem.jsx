@@ -34,6 +34,8 @@ class GroupListItem extends React.Component {
           {this.state.showDetails ? this.details : 'Click for More Details'}
         </td>
         <td onClick={this.handleMessageClick}>
+          {this.props.item.owner}
+          <br />
           <img alt="Message" src="http://www.rcuniverse.com/images/email-icon.jpg" />
         </td>
       </tr>
