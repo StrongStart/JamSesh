@@ -26,12 +26,20 @@ class SignIn extends React.Component {
     firebase.auth().signInWithEmailAndPassword(loginUser.email, loginUser.password)
       .catch(error => {
         err = true;
-        alert(error.message)
         console.warn(error);
       })
       .then(() => {
         if (!err) {
           browserHistory.push('/');
+
+          const name = firebase.auth().currentUser.displayName
+          const user = {
+            id: name,
+            username: name,
+          }
+
+          firebase.database().ref(`logged/${user.id}`).set(user)
+
         }
       });
   }
@@ -43,6 +51,7 @@ class SignIn extends React.Component {
         <Validation.components.Form onSubmit={this.handleSubmit} className="col-md-8">
           <div className="form-group">
             <Validation.components.Input
+              type="email"
               className="form-control"
               value=""
               placeholder="Email"

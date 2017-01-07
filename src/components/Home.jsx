@@ -45,7 +45,7 @@ class Home extends React.Component {
           <Search runSearch={this.runSearch} />
         </div>
         <div className="col-md-8">
-          <h4>JamSesh Jive Turkey Chat</h4>
+          <h4>JamChat!</h4>
           {/* <Messenger firebaseApp={this.props.firebaseApp} sendTo={this.state.sendTo} /> */}
           <div class="row">
             <ChatRoom />

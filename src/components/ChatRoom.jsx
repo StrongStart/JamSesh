@@ -9,7 +9,8 @@ class ChatRoom extends Component {
     this.submitMessage = this.submitMessage.bind(this)
     this.state = {
       message: '',
-      messages: []
+      messages: [],
+      users: []
     }
   }
 
@@ -22,6 +23,16 @@ class ChatRoom extends Component {
       if (currentMessages != null) {
         this.setState({
           messages: currentMessages
+        })
+      }
+    })
+    firebase.database().ref('logged/').on('value', (snapshot) => {
+      console.log(snapshot.val(), 'testerooni')
+      const currentUsers = snapshot.val()
+
+      if (currentUsers != null) {
+        this.setState({
+          users: currentUsers
         })
       }
     })
@@ -63,6 +74,20 @@ class ChatRoom extends Component {
   }
 
   render () {
+
+    const loggedIn = [];
+    for(var key in this.state.users){
+      loggedIn.push(key);
+    }
+
+    const loggedUsers = loggedIn.map(user => {
+      console.log(user, 'user key in map?!')
+      console.log(user, 'username in map?!')
+      return (
+        <div key={user}><strong>{user}</strong></div>
+      )
+    })
+
     const currentMessage = this.state.messages.map((message, i) => {
       return (
         <div key={message.id}><strong>{message.user}</strong>: {message.text}</div>
@@ -70,12 +95,15 @@ class ChatRoom extends Component {
     });
     return (
       <div>
+      <div>
         <div>
           {currentMessage.slice(-10)}
         </div>
         <input onChange={this.updateMessage} onKeyDown={this.add.bind(this)} type="text" placeholder="Sexy Placeholder" value={this.state.message}/>
         <button onClick={this.submitMessage}>Send</button>
       </div>
+      <div>{loggedUsers}</div>
+    </div>
     )
   }
 }
