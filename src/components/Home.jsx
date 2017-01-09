@@ -45,7 +45,7 @@ class Home extends React.Component {
           <Search runSearch={this.runSearch} />
         </div>
         <div className="col-md-8">
-          <h4>JamChat!</h4>
+          <div style={styles.chatHeader}>Jam Chat!</div>
           {/* <Messenger firebaseApp={this.props.firebaseApp} sendTo={this.state.sendTo} /> */}
           <div class="row">
             <ChatRoom />
@@ -56,6 +56,20 @@ class Home extends React.Component {
         </div>
       </div>
     );
+  }
+}
+
+const styles = {
+  chatHeader: {
+    backgroundColor: "LightBlue",
+    borderWidth: 2,
+    borderStyle: "solid",
+    fontSize: "xx-large",
+    fontFamily: "Arial",
+    borderRadius: 10,
+    padding: 10,
+    marginBottom: 5,
+    width: 170
   }
 }
 

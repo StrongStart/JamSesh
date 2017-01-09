@@ -55,7 +55,7 @@ class ChatRoom extends Component {
     console.log(`submitMessage: ${this.state.message}`)
     let curUser = '';
 
-    firebase.auth().currentUser ? curUser = firebase.auth().currentUser.displayName : curUser = 'anonymous'
+    firebase.auth().currentUser ? curUser = firebase.auth().currentUser.displayName : curUser = 'guest'
 
     const nextMessage = {
       id: this.state.messages.length,
@@ -89,22 +89,63 @@ class ChatRoom extends Component {
     })
 
     const currentMessage = this.state.messages.map((message, i) => {
+      const messageStyle = {
+        padding: 5,
+        borderRadius: 10,
+        margin: "auto"
+      }
+
+      i % 2 === 0 ? messageStyle.backgroundColor = "MintCream" : messageStyle.backgroundColor = "Gainsboro"
+
       return (
-        <div key={message.id}><strong>{message.user}</strong>: {message.text}</div>
+        <div style={messageStyle} key={message.id}><strong>{message.user}</strong>: {message.text}</div>
       )
     });
     return (
+      <div style={chatStyles.chat}>
       <div>
-      <div>
-        <div>
+        <div style={chatStyles.messages}>
           {currentMessage.slice(-10)}
         </div>
+        <div style={chatStyles.logged}>Who's Logged In? <br/> {loggedUsers}</div>
+        <div style={chatStyles.input} id="chat-input">
         <input onChange={this.updateMessage} onKeyDown={this.add.bind(this)} type="text" placeholder="Sexy Placeholder" value={this.state.message}/>
         <button onClick={this.submitMessage}>Send</button>
+        </div>
       </div>
-      <div>{loggedUsers}</div>
     </div>
     )
+  }
+}
+
+const chatStyles = {
+  messages: {
+    padding: 8,
+    backgroundColor: "#F0F8FF",
+    fontFamily: "Arial, Helvetica, sans-serif",
+    width: "60%",
+    borderRadius: 10,
+    display: "inline-block"
+  },
+  input: {
+    padding: 15,
+    borderRadius: 10
+  },
+  chat: {
+    bottomPadding: 30,
+    topPadding: 10
+  },
+  logged: {
+    borderWidth: 1,
+    borderStyle: "solid",
+    verticalAlign: "top",
+    padding: 5,
+    marginLeft: 10,
+    backgroundColor: "LightBlue",
+    borderRadius: 10,
+    width: "30%",
+    display: "inline-block",
+    float: "top"
   }
 }
 

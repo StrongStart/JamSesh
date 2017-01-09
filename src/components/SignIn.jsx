@@ -13,6 +13,7 @@ Object.assign(Validation.rules, {
 class SignIn extends React.Component {
   constructor(props) {
     super(props);
+    this.initChat = this.initChat.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -40,8 +41,26 @@ class SignIn extends React.Component {
 
           firebase.database().ref(`logged/${user.id}`).set(user)
 
+          firebase.auth().onAuthStateChanged(function(user) {
+    // Once authenticated, instantiate Firechat with the logged in user
+            if (user) {
+              this.initChat(user);
+            }
+          });
+
         }
       });
+  }
+
+    initChat(user) {
+    // Get a Firebase Database ref
+    var chatRef = firebase.database().ref("chat");
+
+    // Create a Firechat instance
+    var chat = new FirechatUI(chatRef, document.getElementById('root'));
+
+    // Set the Firechat user
+    chat.setUser(user.uid, user.displayName);
   }
 
   render() {
