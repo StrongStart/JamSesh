@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
-import firebase from 'firebase'
+import React from 'react';
+import Validation from 'react-validation';
+import firebase from 'firebase';
 
-class ChatRoom extends Component {
-
+class PrivateChat extends React.Component {
   constructor(props, context) {
     super(props, context)
     this.updateMessage = this.updateMessage.bind(this)
@@ -151,4 +151,8 @@ const chatStyles = {
   }
 }
 
-export default ChatRoom
+
+
+
+
+export default PrivateChat;
