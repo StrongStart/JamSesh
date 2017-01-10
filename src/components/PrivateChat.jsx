@@ -1,8 +1,9 @@
-import React from 'react';
-import Validation from 'react-validation';
-import firebase from 'firebase';
+import React, { Component } from 'react'
+import firebase from 'firebase'
 
-class PrivateChat extends React.Component {
+class PrivateChat extends Component {
+
+
   constructor(props, context) {
     super(props, context)
     this.updateMessage = this.updateMessage.bind(this)
@@ -10,15 +11,18 @@ class PrivateChat extends React.Component {
     this.state = {
       message: '',
       messages: [],
-      users: []
+      users: [],
+      roomId: this.props.id
+
     }
   }
 
   componentDidMount() {
-    console.log('confirmerooni')
-    firebase.database().ref('messager/').on('value', (snapshot) => {
+
+    firebase.database().ref('privateChat').orderByChild('roomId').equalTo(this.state.roomId).on('value', (snapshot) => {
 
       const currentMessages = snapshot.val()
+      // console.log(currentMessages, 'current messages')
 
       if (currentMessages != null) {
         this.setState({
@@ -59,11 +63,14 @@ class PrivateChat extends React.Component {
 
     const nextMessage = {
       id: this.state.messages.length,
+      roomId: this.state.roomId,
+
       user: curUser,
       text: this.state.message
     }
 
-    firebase.database().ref('messager/' + nextMessage.id).set(nextMessage)
+    firebase.database().ref('privateChat/' + nextMessage.id).set(nextMessage)
+
 
     this.state.message = ''
     // let list = Object.assign([], this.state.messages)
@@ -75,20 +82,9 @@ class PrivateChat extends React.Component {
 
   render () {
 
-    const loggedIn = [];
-    for(var key in this.state.users){
-      loggedIn.push(key);
-    }
-
-    const loggedUsers = loggedIn.map(user => {
-      console.log(user, 'user key in map?!')
-      console.log(user, 'username in map?!')
-      return (
-        <div key={user}><strong>{user}</strong></div>
-      )
-    })
-
     const currentMessage = this.state.messages.map((message, i) => {
+
+
       const messageStyle = {
         padding: 5,
         borderRadius: 10,
@@ -98,16 +94,17 @@ class PrivateChat extends React.Component {
       i % 2 === 0 ? messageStyle.backgroundColor = "MintCream" : messageStyle.backgroundColor = "Gainsboro"
 
       return (
-        <div style={messageStyle} key={message.id}><strong>{message.user}</strong>: {message.text}</div>
+        <div style={messageStyle}><strong>{message.user}</strong>: {message.text}</div>
+
       )
     });
     return (
       <div style={chatStyles.chat}>
       <div>
-        <div style={chatStyles.messages} >
-          {currentMessage.slice(-40)}
+        <div id="messages" style={chatStyles.messages}>
+          {currentMessage.slice(-80)}
         </div>
-        <div style={chatStyles.logged}>Who's Logged In? <br/> {loggedUsers}</div>
+
         <div style={chatStyles.input} id="chat-input">
         <input onChange={this.updateMessage} onKeyDown={this.add.bind(this)} type="text" placeholder="Sexy Placeholder" value={this.state.message}/>
         <button onClick={this.submitMessage}>Send</button>
@@ -123,11 +120,11 @@ const chatStyles = {
     padding: 8,
     backgroundColor: "#F0F8FF",
     fontFamily: "Arial, Helvetica, sans-serif",
-    width: "60%",
     height: 300,
     borderRadius: 10,
-    display: "inline-block",
-    overflow: 'auto'
+    overflow: "auto",
+    display: "inline-block"
+
   },
   input: {
     padding: 15,
@@ -151,8 +148,4 @@ const chatStyles = {
   }
 }
 
-
-
-
-
-export default PrivateChat;
+export default PrivateChat

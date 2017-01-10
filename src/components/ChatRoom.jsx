@@ -10,12 +10,14 @@ class ChatRoom extends Component {
     this.state = {
       message: '',
       messages: [],
-      users: []
+      users: [],
+      allUsers: [],
     }
   }
 
   componentDidMount() {
     console.log('confirmerooni')
+
     firebase.database().ref('messager/').on('value', (snapshot) => {
 
       const currentMessages = snapshot.val()
@@ -26,6 +28,18 @@ class ChatRoom extends Component {
         })
       }
     })
+
+    firebase.database().ref('users/').on('value', (snapshot) => {
+
+      const allUsers = snapshot.val()
+
+      if (allUsers != null) {
+        this.setState({
+          allUsers: allUsers
+        })
+      }
+    })
+
     firebase.database().ref('logged/').on('value', (snapshot) => {
       console.log(snapshot.val(), 'testerooni')
       const currentUsers = snapshot.val()
@@ -88,7 +102,18 @@ class ChatRoom extends Component {
       )
     })
 
+    const all = [];
+    for(var key in this.state.allUsers){
+      all.push(key);
+    }
+    const allUsers = all.map(user => {
+      return (
+        <div><strong>{user}</strong></div>
+      )
+    })
+
     const currentMessage = this.state.messages.map((message, i) => {
+
       const messageStyle = {
         padding: 5,
         borderRadius: 10,
@@ -104,10 +129,12 @@ class ChatRoom extends Component {
     return (
       <div style={chatStyles.chat}>
       <div>
-        <div style={chatStyles.messages} >
-          {currentMessage.slice(-40)}
+        <div id="messages" style={chatStyles.messages}>
+          {currentMessage.slice(-80)}
+
         </div>
         <div style={chatStyles.logged}>Who's Logged In? <br/> {loggedUsers}</div>
+        {/* <div style={chatStyles.logged}>All Users <br/> {allUsers}</div> */}
         <div style={chatStyles.input} id="chat-input">
         <input onChange={this.updateMessage} onKeyDown={this.add.bind(this)} type="text" placeholder="Sexy Placeholder" value={this.state.message}/>
         <button onClick={this.submitMessage}>Send</button>
@@ -126,8 +153,9 @@ const chatStyles = {
     width: "60%",
     height: 300,
     borderRadius: 10,
-    display: "inline-block",
-    overflow: 'auto'
+    overflow: "auto",
+    display: "inline-block"
+
   },
   input: {
     padding: 15,

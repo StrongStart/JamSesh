@@ -12,6 +12,7 @@ class Home extends React.Component {
       query: null,
       groups: [],
       sendTo: null,
+      showSearch: false,
     };
     this.imgStyle = {
       'max-width': '100%',
@@ -19,7 +20,12 @@ class Home extends React.Component {
     };
     this.runSearch = this.runSearch.bind(this);
     this.setSendTo = this.setSendTo.bind(this);
+    this.handleSearchClick = this.handleSearchClick.bind(this);
     const that = this;
+
+    this.search = (
+      <Search runSearch={this.runSearch} />
+    )
   }
 
   setSendTo(sendTo) {
@@ -27,6 +33,12 @@ class Home extends React.Component {
   }
   runSearch(queryObj) {
     this.setState({ query: queryObj });
+  }
+
+  handleSearchClick () {
+    return this.state.showSearch ?
+    this.setState({ showSearch: false }) :
+    this.setState({ showSearch: true });
   }
 
   render() {
@@ -41,8 +53,8 @@ class Home extends React.Component {
           <GroupList query={this.state.query} sendTo={this.setSendTo} />
         </div>
         <div className="col-md-4 bg-info">
-          <h4>Filter by:</h4>
-          <Search runSearch={this.runSearch} />
+          <button onClick={this.handleSearchClick}>Filtered Search</button>
+          { this.state.showSearch ? this.search : '' }
         </div>
         <div className="col-md-8">
           <div style={styles.chatHeader}>Jam Chat!</div>
