@@ -3,6 +3,7 @@ import firebase from 'firebase'
 
 class PrivateChat extends Component {
 
+
   constructor(props, context) {
     super(props, context)
     this.updateMessage = this.updateMessage.bind(this)
@@ -12,6 +13,7 @@ class PrivateChat extends Component {
       messages: [],
       users: [],
       roomId: this.props.id
+
     }
   }
 
@@ -62,11 +64,13 @@ class PrivateChat extends Component {
     const nextMessage = {
       id: this.state.messages.length,
       roomId: this.state.roomId,
+
       user: curUser,
       text: this.state.message
     }
 
     firebase.database().ref('privateChat/' + nextMessage.id).set(nextMessage)
+
 
     this.state.message = ''
     // let list = Object.assign([], this.state.messages)
@@ -80,6 +84,7 @@ class PrivateChat extends Component {
 
     const currentMessage = this.state.messages.map((message, i) => {
 
+
       const messageStyle = {
         padding: 5,
         borderRadius: 10,
@@ -90,6 +95,7 @@ class PrivateChat extends Component {
 
       return (
         <div style={messageStyle}><strong>{message.user}</strong>: {message.text}</div>
+
       )
     });
     return (
@@ -98,6 +104,7 @@ class PrivateChat extends Component {
         <div id="messages" style={chatStyles.messages}>
           {currentMessage.slice(-80)}
         </div>
+
         <div style={chatStyles.input} id="chat-input">
         <input onChange={this.updateMessage} onKeyDown={this.add.bind(this)} type="text" placeholder="Sexy Placeholder" value={this.state.message}/>
         <button onClick={this.submitMessage}>Send</button>
@@ -117,6 +124,7 @@ const chatStyles = {
     borderRadius: 10,
     overflow: "auto",
     display: "inline-block"
+
   },
   input: {
     padding: 15,

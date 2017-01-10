@@ -1,12 +1,15 @@
 import React from 'react';
 import PrivateChat from './PrivateChat.jsx'
 // import { browserHistory } from 'react-router';
+import PrivateChat from './PrivateChat.jsx';
 
 class GroupListItem extends React.Component {
   constructor(props) {
     super(props);
     this.handleDetailsClick = this.handleDetailsClick.bind(this);
     this.handleMessageClick = this.handleMessageClick.bind(this);
+    this.onClick = this.onClick.bind(this);
+    this.getInitialState = this.getInitialState.bind(this);
     this.state = {
       showDetails: false,
     };
@@ -14,6 +17,16 @@ class GroupListItem extends React.Component {
       <p><strong>Availability:</strong> {props.item.avail}</p>
       <p><strong>Details:</strong> {props.item.details}</p></span>);
   }
+  getInitialState() {
+    return { showResults: false };
+  }
+
+  onClick() {
+    return this.state.showResults ?
+    this.setState({ showResults: false }) :
+    this.setState({ showResults: true });
+  }
+
   handleDetailsClick() {
     return this.state.showDetails ?
     this.setState({ showDetails: false }) :
@@ -41,14 +54,28 @@ class GroupListItem extends React.Component {
         </td>
         <td>
           {this.props.item.owner}
+
           <br />
           <img onClick={this.handleMessageClick} alt="Message" src="http://www.rcuniverse.com/images/email-icon.jpg" />
           <div style={popChat}>{ this.state.showChat ? <PrivateChat id={this.props.item.id}/> : ''} </div>
         </td>
+        <tr>
+          <div style={styles.popChat}>
+            { this.state.showResults ? <PrivateChat /> : null }
+          </div>
+        </tr>
       </tr>
     );
   }
 }
+const styles = {
+  popChat: {
+    position: 'fixed',
+    bottom: '0%',
+    marginLeft: 100,
+    zIndex: 5,
+  },
+};
 
 const popChat = {
   position: 'fixed',

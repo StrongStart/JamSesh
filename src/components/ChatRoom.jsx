@@ -131,6 +131,7 @@ class ChatRoom extends Component {
       <div>
         <div id="messages" style={chatStyles.messages}>
           {currentMessage.slice(-80)}
+
         </div>
         <div style={chatStyles.logged}>Who's Logged In? <br/> {loggedUsers}</div>
         {/* <div style={chatStyles.logged}>All Users <br/> {allUsers}</div> */}
@@ -154,6 +155,7 @@ const chatStyles = {
     borderRadius: 10,
     overflow: "auto",
     display: "inline-block"
+
   },
   input: {
     padding: 15,
