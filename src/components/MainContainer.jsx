@@ -12,6 +12,8 @@ class MainContainer extends React.Component {
     this.logOut = this.logOut.bind(this);
   }
   logOut() {
+    const username = firebase.auth().currentUser.displayName;
+    firebase.database().ref('logged/').child(username).remove();
     firebase.auth().signOut();
     this.forceUpdate();
   }

@@ -19,10 +19,13 @@ class CreateGroup extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  componentDidMount() {
+  }
 
   handleSubmit(event) {
     event.preventDefault();
     const newGroup = {
+      id: groups.length,
       owner: this.state.user,
       instrument: event.target.instrument.value,
       name: event.target.name.value,
@@ -32,6 +35,8 @@ class CreateGroup extends React.Component {
       details: event.target.details.value,
     };
     this.props.firebaseApp.database().ref(`groups/${event.target.name.value}`).push(newGroup);
+    groups.push(newGroup);
+    console.log(this.state.groups, 'is this going away or even here')
     browserHistory.push('/');
   }
   render() {
@@ -102,5 +107,7 @@ class CreateGroup extends React.Component {
     );
   }
 }
+
+const groups = [];
 
 export default CreateGroup;

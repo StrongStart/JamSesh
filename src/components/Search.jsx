@@ -17,6 +17,8 @@ class Search extends React.Component {
     this.props.runSearch(queryObject);
   }
 
+
+
   render() {
     return (
       <Validation.components.Form onSubmit={this.handleSubmit}>

@@ -88,6 +88,7 @@ class SignUp extends React.Component {
           </div>
           <div className="form-group">
             <Validation.components.Input
+              type="email"
               className="form-control"
               value=""
               placeholder="Email"
