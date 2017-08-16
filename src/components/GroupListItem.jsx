@@ -1,7 +1,7 @@
 import React from 'react';
 import PrivateChat from './PrivateChat.jsx'
 // import { browserHistory } from 'react-router';
-import PrivateChat from './PrivateChat.jsx';
+// import PrivateChat from './PrivateChat.jsx';
 
 class GroupListItem extends React.Component {
   constructor(props) {
