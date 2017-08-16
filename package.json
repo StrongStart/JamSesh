@@ -4,11 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server",
+    "start": "webpack && webpack-dev-server",
     "start:production": "node server.js",
     "test": "eslint app && mocha test/.setup.js test",
     "pm2": "pm2 start server.js --name=\"jt-client\"",
-    "build": "webpack"
+    "build": "webpack",
+    "deploy": "webpack && firebase deploy"
   },
   "keywords": [],
   "author": "",
