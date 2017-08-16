@@ -4,6 +4,7 @@ import Search from './Search.jsx';
 import Messenger from './Messenger.jsx';
 import firebase from 'firebase';
 import ChatRoom from './ChatRoom.jsx';
+import Map from './Map.jsx';
 
 export default class Home extends React.Component {
   constructor(props) {
@@ -56,10 +57,12 @@ export default class Home extends React.Component {
           <button onClick={this.handleSearchClick}>Filtered Search</button>
           {this.state.showSearch ? this.search : ''}
         </div>
-        <div className="col-md-4">Hi</div>
+        <div className="col-md-4">
+          <Map />
+        </div>
         <div className="col-md-4">
           <div style={styles.chatHeader}>Jam Chat!</div>
-          {/* <Messenger firebaseApp={this.props.firebaseApp} sendTo={this.state.sendTo} /> */}
+           {/* <Messenger firebaseApp={this.props.firebaseApp} sendTo={this.state.sendTo} />  */}
           <div className="row">
             <ChatRoom />
           </div>
