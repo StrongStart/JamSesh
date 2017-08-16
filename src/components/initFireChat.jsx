@@ -1,4 +1,4 @@
-var chatRef = new Firebase('https://jam-sesh-b8afb.firebaseio.com');
+var chatRef = new Firebase('https://jamsesh-13002.firebaseio.com');
    var chat = new FirechatUI(chatRef, document.getElementById("firechat-wrapper"));
    var simpleLogin = new FirebaseSimpleLogin(chatRef, function(err, user) {
      if (user) {
