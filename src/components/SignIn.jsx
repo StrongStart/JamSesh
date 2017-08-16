@@ -33,13 +33,13 @@ class SignIn extends React.Component {
         if (!err) {
           browserHistory.push('/');
 
-          const name = firebase.auth().currentUser.displayName
+          const name = firebase.auth().currentUser.displayName;
           const user = {
             id: name,
             username: name,
-          }
+          };
 
-          firebase.database().ref(`logged/${user.id}`).set(user)
+          firebase.database().ref(`logged/${user.id}`).set(user);
 
           firebase.auth().onAuthStateChanged(function(user) {
     // Once authenticated, instantiate Firechat with the logged in user
@@ -52,7 +52,7 @@ class SignIn extends React.Component {
       });
   }
 
-    initChat(user) {
+  initChat(user) {
     // Get a Firebase Database ref
     var chatRef = firebase.database().ref("chat");
 
@@ -97,7 +97,7 @@ class SignIn extends React.Component {
           Need an account? <Link to="sign-up">Sign up!</Link>
         </div>
         <div>
-          <img alt="JamSesh" style={this.imgStyle} className="col-md-4 pull-right" src="http://i67.tinypic.com/2ld9iza.png"/>
+          <img alt="JamSesh" style={this.imgStyle} className="col-md-4 pull-right" src="http://i67.tinypic.com/2ld9iza.png" />
         </div>
       </div>
     );

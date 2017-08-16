@@ -5,7 +5,7 @@ import Messenger from './Messenger.jsx';
 import firebase from 'firebase';
 import ChatRoom from './ChatRoom.jsx';
 
-class Home extends React.Component {
+export default class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -15,8 +15,8 @@ class Home extends React.Component {
       showSearch: false,
     };
     this.imgStyle = {
-      'max-width': '100%',
-      'max-height': '100%',
+      maxWidth: '100%',
+      maxHeight: '100%',
     };
     this.runSearch = this.runSearch.bind(this);
     this.setSendTo = this.setSendTo.bind(this);
@@ -25,7 +25,7 @@ class Home extends React.Component {
 
     this.search = (
       <Search runSearch={this.runSearch} />
-    )
+    );
   }
 
   setSendTo(sendTo) {
@@ -35,7 +35,7 @@ class Home extends React.Component {
     this.setState({ query: queryObj });
   }
 
-  handleSearchClick () {
+  handleSearchClick() {
     return this.state.showSearch ?
     this.setState({ showSearch: false }) :
     this.setState({ showSearch: true });
@@ -54,17 +54,18 @@ class Home extends React.Component {
         </div>
         <div className="col-md-4 bg-info">
           <button onClick={this.handleSearchClick}>Filtered Search</button>
-          { this.state.showSearch ? this.search : '' }
+          {this.state.showSearch ? this.search : ''}
         </div>
-        <div className="col-md-8">
+        <div className="col-md-4">Hi</div>
+        <div className="col-md-4">
           <div style={styles.chatHeader}>Jam Chat!</div>
           {/* <Messenger firebaseApp={this.props.firebaseApp} sendTo={this.state.sendTo} /> */}
-          <div class="row">
+          <div className="row">
             <ChatRoom />
           </div>
         </div>
         <div className="col-md-4">
-          <img style={this.imgStyle} className="image-responsive" src="http://i67.tinypic.com/2ld9iza.png" />
+          <img style={this.imgStyle} className="image-responsive" src="http://i67.tinypic.com/2ld9iza.png" alt="jam" />
         </div>
       </div>
     );
@@ -73,16 +74,14 @@ class Home extends React.Component {
 
 const styles = {
   chatHeader: {
-    backgroundColor: "LightBlue",
+    backgroundColor: 'LightBlue',
     borderWidth: 2,
-    borderStyle: "solid",
-    fontSize: "xx-large",
-    fontFamily: "Arial",
+    borderStyle: 'solid',
+    fontSize: 'xx-large',
+    fontFamily: 'Arial',
     borderRadius: 10,
     padding: 10,
     marginBottom: 5,
-    width: 170
-  }
-}
-
-export default Home;
+    width: 170,
+  },
+};

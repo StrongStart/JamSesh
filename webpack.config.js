@@ -2,11 +2,16 @@ const path = require('path');
 const webpack = require('webpack');
 module.exports = {
   devtool: 'cheap-module-eval-source-map',
-  entry: ['webpack-hot-middleware/client', './src/Main.jsx'],
+  entry: './src/Main.jsx',
   output: {
     path: path.join(__dirname, 'dist'),
     filename: 'bundle.js',
     publicPath: '/static/',
+  },
+  devServer: {
+    inline: true,
+    contentBase: './src',
+    port: 8100,
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
