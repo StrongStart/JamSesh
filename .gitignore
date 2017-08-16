@@ -3,8 +3,5 @@ node_modules/
 app/bower_components/
 *.log
 .env
-bundle.js
-bundle.js.map
-dist
 */firebaseConfig.js
-
+dist/*

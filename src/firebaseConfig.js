@@ -1,9 +1,9 @@
-const firebaseConfig = {
-  apiKey: "AIzaSyC0Z6DAsQVtnWRMxn_U5MlOQ4XI-z7YuhQ",
-  authDomain: "jam-sesh-b8afb.firebaseapp.com",
-  databaseURL: "https://jam-sesh-b8afb.firebaseio.com",
-  storageBucket: "jam-sesh-b8afb.appspot.com",
-  messagingSenderId: "235017621855"
-};
-
-export default firebaseConfig;
+var config = {
+            apiKey: "AIzaSyDYByxRV5Xbain7RIBtHgrXMUXd-c7V28E",
+            authDomain: "jamsesh-13002.firebaseapp.com",
+            databaseURL: "https://jamsesh-13002.firebaseio.com",
+            projectId: "jamsesh-13002",
+            storageBucket: "jamsesh-13002.appspot.com",
+            messagingSenderId: "936751548908"
+          };
+// export default firebaseConfig;
