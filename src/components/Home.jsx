@@ -56,7 +56,8 @@ export default class Home extends React.Component {
           <button onClick={this.handleSearchClick}>Filtered Search</button>
           {this.state.showSearch ? this.search : ''}
         </div>
-        <div className="col-md-8">
+        <div className="col-md-4">Hi</div>
+        <div className="col-md-4">
           <div style={styles.chatHeader}>Jam Chat!</div>
           {/* <Messenger firebaseApp={this.props.firebaseApp} sendTo={this.state.sendTo} /> */}
           <div className="row">
