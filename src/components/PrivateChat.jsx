@@ -22,7 +22,6 @@ class PrivateChat extends Component {
     firebase.database().ref('privateChat').orderByChild('roomId').equalTo(this.state.roomId).on('value', (snapshot) => {
 
       const currentMessages = snapshot.val()
-      // console.log(currentMessages, 'current messages')
 
       if (currentMessages != null) {
         this.setState({
@@ -31,7 +30,6 @@ class PrivateChat extends Component {
       }
     })
     firebase.database().ref('logged/').on('value', (snapshot) => {
-      console.log(snapshot.val(), 'testerooni')
       const currentUsers = snapshot.val()
 
       if (currentUsers != null) {
@@ -43,7 +41,6 @@ class PrivateChat extends Component {
   }
 
   updateMessage(event) {
-    // console.log(`updateMessage: ${event.target.value}`)
     this.setState({
       message: event.target.value
     })
@@ -56,7 +53,6 @@ class PrivateChat extends Component {
   }
 
   submitMessage(event){
-    console.log(`submitMessage: ${this.state.message}`)
     let curUser = '';
 
     firebase.auth().currentUser ? curUser = firebase.auth().currentUser.displayName : curUser = 'guest'

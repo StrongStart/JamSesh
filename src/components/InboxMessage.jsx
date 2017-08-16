@@ -12,14 +12,11 @@ class InboxMessage extends React.Component {
   }
 
   handleDeleteClick() {
-    console.log('test');
-    console.log(this.state.key);
     const user = firebase.auth().currentUser.displayName;
     firebase.database().ref(`/messages/${user}/${this.state.key.item.exists}`).remove();
     browserHistory.push('redirect');
   }
   render() {
-    console.log("rendering messages");
     return (
       <tr>
         <td>{this.props.item.fromUser}</td>

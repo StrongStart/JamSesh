@@ -36,7 +36,6 @@ class CreateGroup extends React.Component {
     };
     this.props.firebaseApp.database().ref(`groups/${event.target.name.value}`).push(newGroup);
     groups.push(newGroup);
-    console.log(this.state.groups, 'is this going away or even here')
     browserHistory.push('/');
   }
   render() {

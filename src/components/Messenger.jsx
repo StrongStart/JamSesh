@@ -35,7 +35,7 @@ class Messenger extends React.Component {
       return (
         <div className="container col-md-8">
           <Validation.components.Form onSubmit={this.handleSubmit}>
-            <label for="toUser" className="col-md-2">Send To:</label>
+            <label htmlFor="toUser" className="col-md-2">Send To:</label>
             <div className="form-group col-md-10" id="toUser">
               <Validation.components.Input
                 className="form-control"
@@ -44,7 +44,7 @@ class Messenger extends React.Component {
                 validations={['required']}
               />
             </div>
-            <label for="message" className="col-md-2">Message:</label>
+            <label htmlFor="message" className="col-md-2">Message:</label>
             <div className="form-group col-md-10" id="message">
               <Validation.components.Textarea
                 className="form-control"

@@ -14,12 +14,10 @@ class Navbar extends React.Component {
   componentDidMount() {
     if (firebase.auth().currentUser) {
       const user = firebase.auth().currentUser.displayName;
-      console.log(user, 'test');
       firebase.database().ref(`/messages/${user}`)
       .on('value', snapshot => {
         const snap = snapshot.val();
         for(const key in snapshot.val()) {
-          console.log(key, 'key');
           snap[key].exists = key;
           this.state.messages.push(snap[key])
         }
@@ -31,7 +29,6 @@ class Navbar extends React.Component {
   }
 
   render() {
-    console.log(this.state.messages);
     return (<div className="navbar navbar-default">
         {firebase.auth().currentUser ? (
           <div className="container-fluid">
