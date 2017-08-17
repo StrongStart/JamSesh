@@ -9,9 +9,7 @@ class Inbox extends React.Component {
     this.state = {
       messages: [],
     };
-    console.log(this.props.firebaseApp);
     const user = firebase.auth().currentUser.displayName;
-    console.log(user, 'test')
     firebase.database().ref(`/messages/${user}`)
     .on('value', snapshot => {
       const snap = snapshot.val();
@@ -25,8 +23,6 @@ class Inbox extends React.Component {
   }
 
   // update(message) {
-  //   console.log(message, 'message');
-  //   console.log(this.state.messages, 'state messages');
   //   this.state.messages.forEach((el, id) => {
   //     if (el.exists === message) {
   //       this.state.messages.splice(id, 1);
@@ -36,7 +32,6 @@ class Inbox extends React.Component {
   // }
 
   render() {
-    console.log('rendering inbox');
     const messages = this.state.messages;
     return (
       <div className="container">

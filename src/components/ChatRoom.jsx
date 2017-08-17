@@ -16,7 +16,6 @@ class ChatRoom extends Component {
   }
 
   componentDidMount() {
-    console.log('confirmerooni')
 
     firebase.database().ref('messager/').on('value', (snapshot) => {
 
@@ -41,7 +40,6 @@ class ChatRoom extends Component {
     })
 
     firebase.database().ref('logged/').on('value', (snapshot) => {
-      console.log(snapshot.val(), 'testerooni')
       const currentUsers = snapshot.val()
 
       if (currentUsers != null) {
@@ -53,7 +51,6 @@ class ChatRoom extends Component {
   }
 
   updateMessage(event) {
-    // console.log(`updateMessage: ${event.target.value}`)
     this.setState({
       message: event.target.value
     })
@@ -66,7 +63,6 @@ class ChatRoom extends Component {
   }
 
   submitMessage(event){
-    console.log(`submitMessage: ${this.state.message}`)
     let curUser = '';
 
     firebase.auth().currentUser ? curUser = firebase.auth().currentUser.displayName : curUser = 'guest'
@@ -95,8 +91,6 @@ class ChatRoom extends Component {
     }
 
     const loggedUsers = loggedIn.map(user => {
-      console.log(user, 'user key in map?!')
-      console.log(user, 'username in map?!')
       return (
         <div key={user}><strong>{user}</strong></div>
       )

@@ -4,4 +4,4 @@ app/bower_components/
 *.log
 .env
 */firebaseConfig.js
-dist/*
+dist/bundle.js
