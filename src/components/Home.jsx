@@ -5,6 +5,7 @@ import Messenger from './Messenger.jsx';
 import firebase from 'firebase';
 import ChatRoom from './ChatRoom.jsx';
 import Map from './Map.jsx';
+import Calendar from './Calendar.jsx';
 
 export default class Home extends React.Component {
   constructor(props) {
@@ -44,7 +45,7 @@ export default class Home extends React.Component {
 
   render() {
     return (
-      <div className="container">
+      <div className="container" style={{ background: '#CAE1ED' }}>
         <h2>JamSesh</h2>
         <div className="col-md-8">
           {firebase.auth().currentUser ?
@@ -56,7 +57,7 @@ export default class Home extends React.Component {
             <GroupList query={this.state.query} sendTo={this.setSendTo} />
           </div>
         </div>
-        <div>Google Calendar will go here</div>
+        {/* <Calendar className="col-md-4" />CALENDAR SHOULD BE HERE */}
         <div className="col-md-4 bg-info">
           <button onClick={this.handleSearchClick}>Filtered Search</button>
           {this.state.showSearch ? this.search : ''}
