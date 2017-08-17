@@ -59,7 +59,7 @@ class GroupList extends React.Component {
   render() {
     const groups = this.filterGroups();
     return this.state.groupsFetched ?
-    (<table className="table table-striped">
+    (<table className="table table-striped" >
       <thead>
         <tr>
           <td className="col-md-1">Inst.</td>

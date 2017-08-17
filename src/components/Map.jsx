@@ -1,116 +1,145 @@
-import { withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
+import { GoogleMap, InfoWindow, Marker, withGoogleMap } from 'react-google-maps';
 import { default as React, Component } from 'react';
+import firebase from 'firebase';
+import geocoder from 'google-geocoder';
+// import note from './note1.png';
+
+const googleMapUrl = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyAEcsBoANLQ0cs7xmx0UJXpdLRLOiFHGps';
 
 const SimpleGoogleMap = withGoogleMap(props => (
   <GoogleMap
-    defaultZoom={8}
-    defaultCenter={{ lat: 29.946612, lng: -90.070113 }}
-    googleMapUrl="https://maps.googleapis.com/maps/api/js?key=AIzaSyAEcsBoANLQ0cs7xmx0UJXpdLRLOiFHGps"
-  />
+    googleMapUrl={googleMapUrl}
+    zoom={props.zoom}
+    center={props.center}
+  >
+     {props.markers.map((marker, index) =>
+       <Marker
+         key={index}
+         position={marker.position}
+         onClick={() => props.onMarkerClick(marker)}
+       >
+           {marker.showInfo && (
+             <InfoWindow
+               onCloseClick={() => props.onCloseClick(marker)}
+             >
+             {/* 0 is group, 1 is instrument, 2 is location */}
+               <div>
+                 <strong>{marker.content[0]}</strong>
+                 <br />
+                 <em>Instrument: {marker.content[1]}</em>
+                 <br />
+                 <em>Location: {marker.content[2]}</em>
+               </div>
+             </InfoWindow>
+          )}
+       </Marker>
+     )}
+  </GoogleMap>
 ));
 
+const startCenter = { lat: 29.969516, lng: -90.103866 };
+
 export default class Map extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      zoom: 11,
+      center: startCenter,
+      markers: [],
+    };
+    this.handleMarkerClick = this.handleMarkerClick.bind(this);
+    this.handleCloseClick = this.handleCloseClick.bind(this);
+    this.getLocations = this.getLocations.bind(this);
+  }
+
+  componentDidMount() {
+    this.getLocations();
+  }
+  getLocations() {
+    const temp = [];
+    const groupMarkers = [];
+    firebase.database().ref('/groups/')
+      .on('value', snapshot => {
+        const snap = snapshot.val();
+        for (const prop in snap) {
+          temp.push(snap[prop]);
+        }
+        temp.forEach(el => {
+          for (const prop in el) {
+            const instrument = el[prop].instrument;
+            const name = el[prop].name;
+            const loc = el[prop].loc;
+            const geo = geocoder({
+              key: 'AIzaSyAEcsBoANLQ0cs7xmx0UJXpdLRLOiFHGps',
+            });
+            geo.find(loc, (err, res) => {
+              if (err) {
+                console.error(err);
+              } else {
+                const position = res[0].location;
+                groupMarkers.push({
+                  position,
+                  showInfo: false,
+                  content: [name, instrument, loc],
+                });
+                this.setState({
+                  markers: groupMarkers,
+                });
+              }
+            });
+          }
+        });
+      });
+  }
+
+  handleMarkerClick(targetMarker) {
+    this.setState({
+      center: targetMarker.position,
+      zoom: 15,
+      markers: this.state.markers.map(marker => {
+        if (marker === targetMarker) {
+          return {
+            ...marker,
+            showInfo: true,
+          };
+        }
+        return marker;
+      }),
+    });
+  }
+
+  handleCloseClick(targetMarker) {
+    this.setState({
+      center: startCenter,
+      zoom: 11,
+      markers: this.state.markers.map(marker => {
+        if (marker === targetMarker) {
+          return {
+            ...marker,
+            showInfo: false,
+          };
+        }
+        return marker;
+      }),
+    });
+  }
 
   render() {
     return (
       <SimpleGoogleMap
         containerElement={
-          <div style={{ width: 200, height: 200 }} />
+          <div style={{ width: '100%', height: 200 }} />
         }
         mapElement={
-          <div style={{ width: 200, height: 200 }} />
+          <div style={{ width: '100%', height: 300 }} />
         }
+        onMarkerClick={this.handleMarkerClick}
+        onCloseClick={this.handleCloseClick}
+        markers={this.state.markers}
+        zoom={this.state.zoom}
+        center={this.state.center}
       />
     );
   }
 }
 
-
-// const GettingStartedGoogleMap = withGoogleMap(props => (
-//   <GoogleMap
-//     onClick={props.onMapClick}
-//   >
-//     {props.markers.map(marker => (
-//       <Marker
-//         {...marker}
-//         onRightClick={() => props.onMarkerRightClick(marker)}
-//       />
-//     ))}
-//   </GoogleMap>
-// ));
-
-// export default class GettingStartedExample extends Component {
-//   constructor() {
-//     super();
-//     this.state = {
-//       markers: [{
-//         position: {
-//           lat: 25.0112183,
-//           lng: 121.52067570000001,
-//         },
-//         key: 'Taiwan',
-//         defaultAnimation: 2,
-//       }],
-//     };
-
-//     this.handleMapLoad = this.handleMapLoad.bind(this);
-//     this.handleMapClick = this.handleMapClick.bind(this);
-//     this.handleMarkerRightClick = this.handleMarkerRightClick.bind(this);
-//   }
-
-//   handleMapLoad(map) {
-//     this._mapComponent = map;
-//     if (map) {
-//       console.log(map.getZoom());
-//     }
-//   }
-
-//   /*
-//    * This is called when you click on the map.
-//    * Go and try click now.
-//    */
-//   handleMapClick(event) {
-//     const nextMarkers = [
-//       ...this.state.markers,
-//       {
-//         position: event.latLng,
-//         defaultAnimation: 2,
-//         key: Date.now(), // Add a key property for: http://fb.me/react-warning-keys
-//       },
-//     ];
-//     this.setState({
-//       markers: nextMarkers,
-//     });
-
-//     if (nextMarkers.length === 3) {
-//       this.props.toast(
-//         'Right click on the marker to remove it',
-//         'Also check the code!'
-//       );
-//     }
-//   }
-
-//   handleMarkerRightClick(targetMarker) {
-//     /*
-//      * All you modify is data, and the view is driven by data.
-//      * This is so called data-driven-development. (And yes, it's now in
-//      * web front end and even with google maps API.)
-//      */
-//     const nextMarkers = this.state.markers.filter(marker => marker !== targetMarker);
-//     this.setState({
-//       markers: nextMarkers,
-//     });
-//   }
-
-//   render() {
-//         <GettingStartedGoogleMap
-
-//           onMapLoad={this.handleMapLoad}
-//           onMapClick={this.handleMapClick}
-//           markers={this.state.markers}
-//           onMarkerRightClick={this.handleMarkerRightClick}
-//         />
-//       </div>
-//     );
-//   }
-// }
