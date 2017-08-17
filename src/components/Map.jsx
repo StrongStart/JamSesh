@@ -1,116 +1,111 @@
 import { withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
 import { default as React, Component } from 'react';
+// import InfoWindow from './InfoWindow.jsx';
 
 const SimpleGoogleMap = withGoogleMap(props => (
   <GoogleMap
-    defaultZoom={8}
-    defaultCenter={{ lat: 29.946612, lng: -90.070113 }}
     googleMapUrl="https://maps.googleapis.com/maps/api/js?key=AIzaSyAEcsBoANLQ0cs7xmx0UJXpdLRLOiFHGps"
-  />
+    defaultZoom={10}
+    defaultCenter={{ lat: 29.946612, lng: -90.070113 }}
+  >
+     {props.markers.map((marker, index) => {
+       const onClick = () => props.onMarkerClick(marker);
+       /* const onCloseClick = () => props.onCloseClick(marker); */
+       return (
+         <Marker
+           key={index}
+           position={marker.position}
+           title={(index + 1).toString()}
+           onClick={onClick}
+         >
+          {/* {marker.showInfo && (
+            <InfoWindow onCloseClick={onCloseClick}>
+              <div>
+                <strong>{marker.content}</strong>
+                <br />
+                <em>The contents of this InfoWindow are actually ReactElements.</em>
+              </div>
+            </InfoWindow>
+          )} */}
+         </Marker>
+      );
+     })}
+  </GoogleMap>
 ));
 
+function generateInitialMarkers() {
+  const positions = [{ lat: 29.976617, lng: -90.070113 }, { lat: 29.946612, lng: -90.370117 }, { lat: 29.996608, lng: -90.070113 }, { lat: 29.946612, lng: -90.470108 }, { lat: 29.846620, lng: -90.070113 }];
+
+  const markers = [];
+  for (let i = 0; i < 5; i++) {
+    const position = positions[i];
+    markers.push({
+      position,
+      content: 'This is the secret message'.split(' ')[i],
+      showInfo: false,
+    });
+  }
+  return markers;
+}
+
 export default class Map extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      markers: [],
+    };
+    this.handleMarkerClick = this.handleMarkerClick.bind(this);
+    this.handleCloseClick = this.handleCloseClick.bind(this);
+  }
+
+  componentDidMount() {
+    this.setState({
+      markers: generateInitialMarkers(),
+    });
+  }
+
+  handleMarkerClick(targetMarker) {
+    this.setState({
+      markers: this.state.markers.map(marker => {
+        if (marker === targetMarker) {
+          return {
+            ...marker,
+            showInfo: true,
+          };
+        }
+        return marker;
+      }),
+    });
+  }
+
+  handleCloseClick(targetMarker) {
+    this.setState({
+      markers: this.state.markers.map(marker => {
+        if (marker === targetMarker) {
+          return {
+            ...marker,
+            showInfo: false,
+          };
+        }
+        return marker;
+      }),
+    });
+  }
 
   render() {
     return (
       <SimpleGoogleMap
         containerElement={
-          <div style={{ width: 200, height: 200 }} />
+          <div style={{ width: '100%', height: 200 }} />
         }
         mapElement={
-          <div style={{ width: 200, height: 200 }} />
+          <div style={{ width: '100%', height: 300 }} />
         }
+        onMarkerClick={this.handleMarkerClick}
+        onCloseClick={this.handleCloseClick}
+        markers={this.state.markers}
       />
     );
   }
 }
 
-
-// const GettingStartedGoogleMap = withGoogleMap(props => (
-//   <GoogleMap
-//     onClick={props.onMapClick}
-//   >
-//     {props.markers.map(marker => (
-//       <Marker
-//         {...marker}
-//         onRightClick={() => props.onMarkerRightClick(marker)}
-//       />
-//     ))}
-//   </GoogleMap>
-// ));
-
-// export default class GettingStartedExample extends Component {
-//   constructor() {
-//     super();
-//     this.state = {
-//       markers: [{
-//         position: {
-//           lat: 25.0112183,
-//           lng: 121.52067570000001,
-//         },
-//         key: 'Taiwan',
-//         defaultAnimation: 2,
-//       }],
-//     };
-
-//     this.handleMapLoad = this.handleMapLoad.bind(this);
-//     this.handleMapClick = this.handleMapClick.bind(this);
-//     this.handleMarkerRightClick = this.handleMarkerRightClick.bind(this);
-//   }
-
-//   handleMapLoad(map) {
-//     this._mapComponent = map;
-//     if (map) {
-//       console.log(map.getZoom());
-//     }
-//   }
-
-//   /*
-//    * This is called when you click on the map.
-//    * Go and try click now.
-//    */
-//   handleMapClick(event) {
-//     const nextMarkers = [
-//       ...this.state.markers,
-//       {
-//         position: event.latLng,
-//         defaultAnimation: 2,
-//         key: Date.now(), // Add a key property for: http://fb.me/react-warning-keys
-//       },
-//     ];
-//     this.setState({
-//       markers: nextMarkers,
-//     });
-
-//     if (nextMarkers.length === 3) {
-//       this.props.toast(
-//         'Right click on the marker to remove it',
-//         'Also check the code!'
-//       );
-//     }
-//   }
-
-//   handleMarkerRightClick(targetMarker) {
-//     /*
-//      * All you modify is data, and the view is driven by data.
-//      * This is so called data-driven-development. (And yes, it's now in
-//      * web front end and even with google maps API.)
-//      */
-//     const nextMarkers = this.state.markers.filter(marker => marker !== targetMarker);
-//     this.setState({
-//       markers: nextMarkers,
-//     });
-//   }
-
-//   render() {
-//         <GettingStartedGoogleMap
-
-//           onMapLoad={this.handleMapLoad}
-//           onMapClick={this.handleMapClick}
-//           markers={this.state.markers}
-//           onMarkerRightClick={this.handleMarkerRightClick}
-//         />
-//       </div>
-//     );
-//   }
-// }

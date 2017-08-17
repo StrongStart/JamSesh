@@ -47,13 +47,14 @@ export default class Home extends React.Component {
       <div className="container">
         <h2>JamSesh</h2>
         <div className="col-md-8">
-          <Map />
-        </div>
-        <div className="col-md-8">
           {firebase.auth().currentUser ?
             <strong>Welcome, {firebase.auth().currentUser.displayName}!</strong> :
             <strong>Welcome! Please log in or sign up!</strong>}
-          <GroupList query={this.state.query} sendTo={this.setSendTo} />
+          <Map />
+          <div style={{ padding: '50px' }}></div>
+          <div style={{ maxHeight: '400px', overflowY: 'scroll' }} >
+            <GroupList query={this.state.query} sendTo={this.setSendTo} />
+          </div>
         </div>
         <div>Google Calendar will go here</div>
         <div className="col-md-4 bg-info">
@@ -62,7 +63,6 @@ export default class Home extends React.Component {
         </div>
         <div className="col-md-8">
           <div style={styles.chatHeader}>Jam Chat!</div>
-          {/* <Messenger firebaseApp={this.props.firebaseApp} sendTo={this.state.sendTo} /> */}
           <div className="row">
             <ChatRoom />
           </div>
