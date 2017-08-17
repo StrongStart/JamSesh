@@ -5,7 +5,6 @@ import Messenger from './Messenger.jsx';
 import firebase from 'firebase';
 import ChatRoom from './ChatRoom.jsx';
 import Map from './Map.jsx';
-import Calendar from './Calendar.jsx';
 
 export default class Home extends React.Component {
   constructor(props) {
@@ -57,7 +56,6 @@ export default class Home extends React.Component {
             <GroupList query={this.state.query} sendTo={this.setSendTo} />
           </div>
         </div>
-        {/* <Calendar className="col-md-4" />CALENDAR SHOULD BE HERE */}
         <div className="col-md-4 bg-info">
           <button onClick={this.handleSearchClick}>Filtered Search</button>
           {this.state.showSearch ? this.search : ''}

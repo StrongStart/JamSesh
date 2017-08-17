@@ -66,6 +66,7 @@ class GroupList extends React.Component {
           <td className="col-md-1">Genre</td>
           <td className="col-md-4">Details</td>
           <td className="col-md-1">Created By</td>
+          <td></td>
         </tr>
       </thead>
       <tbody>
