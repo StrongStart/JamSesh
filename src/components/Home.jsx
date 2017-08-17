@@ -44,7 +44,7 @@ export default class Home extends React.Component {
 
   render() {
     return (
-      <div className="container">
+      <div className="container" style={{ background: '#CAE1ED' }}>
         <h2>JamSesh</h2>
         <div className="col-md-8">
           {firebase.auth().currentUser ?
@@ -56,7 +56,6 @@ export default class Home extends React.Component {
             <GroupList query={this.state.query} sendTo={this.setSendTo} />
           </div>
         </div>
-        <div>Google Calendar will go here</div>
         <div className="col-md-4 bg-info">
           <button onClick={this.handleSearchClick}>Filtered Search</button>
           {this.state.showSearch ? this.search : ''}
