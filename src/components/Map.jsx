@@ -2,7 +2,6 @@ import { GoogleMap, InfoWindow, Marker, withGoogleMap } from 'react-google-maps'
 import { default as React, Component } from 'react';
 import firebase from 'firebase';
 import geocoder from 'google-geocoder';
-// import InfoWindow from './InfoWindow.jsx';
 
 const googleMapUrl = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyAEcsBoANLQ0cs7xmx0UJXpdLRLOiFHGps';
 
@@ -12,15 +11,16 @@ const SimpleGoogleMap = withGoogleMap(props => (
     defaultZoom={11}
     defaultCenter={{ lat: 29.946612, lng: -90.070113 }}
   >
-     {props.markers.map((marker, index) => {
-       return (
-         <Marker
-           key={index}
-           position={marker.position}
-           onClick={() => props.onMarkerClick(marker)}
-         >
+     {props.markers.map((marker, index) =>
+       <Marker
+         key={index}
+         position={marker.position}
+         onClick={() => props.onMarkerClick(marker)}
+       >
            {marker.showInfo && (
-             <InfoWindow onCloseClick={() => props.onMarkerClose(marker)}>
+             <InfoWindow
+               onCloseClick={() => props.onMarkerClose(marker)}
+             >
                <div>
                  <strong>{marker.content[0]}</strong>
                  <br />
@@ -28,9 +28,8 @@ const SimpleGoogleMap = withGoogleMap(props => (
                </div>
              </InfoWindow>
           )}
-         </Marker>
-      );
-     })}
+       </Marker>
+     )}
   </GoogleMap>
 ));
 
