@@ -19,7 +19,7 @@ const SimpleGoogleMap = withGoogleMap(props => (
        >
            {marker.showInfo && (
              <InfoWindow
-               onCloseClick={() => props.onMarkerClose(marker)}
+               onCloseClick={() => props.onCloseClick(marker)}
              >
                <div>
                  <strong>{marker.content[0]}</strong>
