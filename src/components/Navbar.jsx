@@ -40,6 +40,9 @@ class Navbar extends React.Component {
                 <Link className="dark button" to="create-group"><span>Create Group</span></Link>
               </li>
               <li>
+                <Link className="dark button" to="video-chat"><span>VideoChat</span></Link>
+              </li>
+              <li>
                 <Link className="dark button" to="inbox">
                   <span>Inbox </span>
                   {/* <span className="bg-danger">{this.state.messages.length}</span> */}

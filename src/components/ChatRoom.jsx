@@ -76,11 +76,6 @@ class ChatRoom extends Component {
     firebase.database().ref('messager/' + nextMessage.id).set(nextMessage)
 
     this.state.message = ''
-    // let list = Object.assign([], this.state.messages)
-    // list.push(nextMessage)
-    // this.setState({
-    //   messages: list
-    // })
   }
 
   render () {

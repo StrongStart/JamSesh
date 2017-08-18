@@ -54,7 +54,7 @@ class GroupListItem extends React.Component {
           {this.props.item.owner}
 
           <br />
-          <img onClick={this.handleMessageClick} alt="Message" src="http://www.rcuniverse.com/images/email-icon.jpg" />
+          <img onClick={this.handleMessageClick} alt="Message" src="https://www.rcuniverse.com/images/email-icon.jpg" />
           <div style={popChat}>{ this.state.showChat ? <PrivateChat id={this.props.item.id}/> : ''} </div>
         </td>
         <tr>
