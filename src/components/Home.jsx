@@ -68,7 +68,7 @@ export default class Home extends React.Component {
           </div>
         </div>
         <div className="col-md-4">
-          <img style={this.imgStyle} className="image-responsive" src="http://i67.tinypic.com/2ld9iza.png" alt="jam" />
+          <img style={this.imgStyle} className="image-responsive" src="https://i67.tinypic.com/2ld9iza.png" alt="jam" />
         </div>
       </div>
     );

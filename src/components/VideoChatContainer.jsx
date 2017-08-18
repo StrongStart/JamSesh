@@ -24,7 +24,7 @@ export class VideoChatContainer extends React.Component {
     });
   }
   video(user) {
-    console.log(user);
+    // console.log(user);
     this.setState({
       showVideo: true,
       chosen: user,
@@ -43,6 +43,11 @@ export class VideoChatContainer extends React.Component {
       <div style={chatStyles.chat}>
         <div>
           <div style={chatStyles.logged}>Who's Logged In? <br/> {loggedUsers}</div>
+        </div>
+        <div>
+          {/* <iframe
+            src="https://tokbox.com/embed/embed/ot-embed.js?embedId=7f122061-a137-4a5f-8e12-90adc74dd8e4&room=DEFAULT_ROOM&iframe=true">
+          </iframe> */}
         </div>
         <div>
           {this.state.showVideo ?
