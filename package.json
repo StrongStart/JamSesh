@@ -9,7 +9,7 @@
     "test": "eslint app && mocha test/.setup.js test",
     "pm2": "pm2 start server.js --name=\"jt-client\"",
     "build": "webpack",
-    "deploy": "webpack && firebase deploy"
+    "deploy": "webpack && firebase deploy --only hosting"
   },
   "keywords": [],
   "author": "",
@@ -23,12 +23,17 @@
     "express": "^4.14.0",
     "express-http-proxy": "^0.7.2",
     "firebase": "^3.6.4",
+    "firebase-admin": "^4.1.1",
+    "firebase-functions": "^0.5.1",
     "firechat": "^3.0.1",
     "google-geocoder": "^0.2.1",
     "isomorphic-style-loader": "^1.1.0",
     "jquery": "^3.1.1",
     "lodash": "^4.17.4",
     "moment": "^2.13.0",
+    "nodemailer": "^2.4.1",
+    "opentok": "^2.6.0",
+    "opentok-react": "^0.6.0",
     "react": "^15.4.1",
     "react-chat-client": "^0.1.0",
     "react-chat-server": "^0.1.1",
@@ -46,10 +51,7 @@
     "underscore": "^1.8.3",
     "validator": "^6.2.0",
     "webpack-dev-middleware": "^1.8.4",
-    "webpack-hot-middleware": "^2.13.2",
-    "nodemailer": "^2.4.1",
-    "firebase-admin": "^4.1.1",
-    "firebase-functions": "^0.5.1"
+    "webpack-hot-middleware": "^2.13.2"
   },
   "devDependencies": {
     "babel-core": "^6.18.2",
