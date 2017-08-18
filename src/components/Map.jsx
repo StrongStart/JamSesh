@@ -128,10 +128,10 @@ export default class Map extends Component {
     return (
       <SimpleGoogleMap
         containerElement={
-          <div style={{ width: '100%', height: 200 }} />
+          <div className="mapContainer" />
         }
         mapElement={
-          <div style={{ width: '100%', height: 300 }} />
+          <div className="mapMap" />
         }
         onMarkerClick={this.handleMarkerClick}
         onCloseClick={this.handleCloseClick}

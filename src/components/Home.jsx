@@ -15,10 +15,6 @@ export default class Home extends React.Component {
       sendTo: null,
       showSearch: false,
     };
-    this.imgStyle = {
-      maxWidth: '100%',
-      maxHeight: '100%',
-    };
     this.runSearch = this.runSearch.bind(this);
     this.setSendTo = this.setSendTo.bind(this);
     this.handleSearchClick = this.handleSearchClick.bind(this);
@@ -51,8 +47,8 @@ export default class Home extends React.Component {
             <strong>Welcome, {firebase.auth().currentUser.displayName}!</strong> :
             <strong>Welcome! Please log in or sign up!</strong>}
           <Map />
-          <div style={{ padding: '50px' }}></div>
-          <div style={{ maxHeight: '400px', overflowY: 'scroll' }} >
+          <div className="buffer"></div>
+          <div className="groupList" >
             <GroupList query={this.state.query} sendTo={this.setSendTo} />
           </div>
         </div>
@@ -62,29 +58,15 @@ export default class Home extends React.Component {
           {this.state.showSearch ? this.search : ''}
         </div>
         <div className="col-md-8">
-          <div style={styles.chatHeader}>Jam Chat!</div>
+          <div className="chatHeader">Jam Chat!</div>
           <div className="row">
             <ChatRoom />
           </div>
         </div>
         <div className="col-md-4">
-          <img style={this.imgStyle} className="image-responsive" src="http://i67.tinypic.com/2ld9iza.png" alt="jam" />
+          <img className="imgStyle image-responsive" src="http://i67.tinypic.com/2ld9iza.png" alt="jam" />
         </div>
       </div>
     );
   }
 }
-
-const styles = {
-  chatHeader: {
-    backgroundColor: 'LightBlue',
-    borderWidth: 2,
-    borderStyle: 'solid',
-    fontSize: 'xx-large',
-    fontFamily: 'Arial',
-    borderRadius: 10,
-    padding: 10,
-    marginBottom: 5,
-    width: 170,
-  },
-};

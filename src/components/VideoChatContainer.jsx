@@ -40,9 +40,9 @@ export class VideoChatContainer extends React.Component {
       return (<div onClick={this.video.bind(null, user)} key={user}><strong>{user}</strong></div>);
     });
     return (
-      <div style={chatStyles.chat}>
+      <div className="chat">
         <div>
-          <div style={chatStyles.logged}>Who's Logged In? <br/> {loggedUsers}</div>
+          <div className="logged">Who's Logged In? <br/> {loggedUsers}</div>
         </div>
         <div>
           {/* <iframe
@@ -62,36 +62,3 @@ export class VideoChatContainer extends React.Component {
 }
 export default VideoChatContainer;
 
-const chatStyles = {
-  messages: {
-    padding: 8,
-    backgroundColor: "#F0F8FF",
-    fontFamily: "Arial, Helvetica, sans-serif",
-    width: "60%",
-    height: 300,
-    borderRadius: 10,
-    overflow: "auto",
-    display: "inline-block"
-
-  },
-  input: {
-    padding: 15,
-    borderRadius: 10
-  },
-  chat: {
-    bottomPadding: 30,
-    topPadding: 10
-  },
-  logged: {
-    borderWidth: 1,
-    borderStyle: "solid",
-    verticalAlign: "top",
-    padding: 5,
-    marginLeft: 10,
-    backgroundColor: "LightBlue",
-    borderRadius: 10,
-    width: "30%",
-    display: "inline-block",
-    float: "top"
-  }
-}

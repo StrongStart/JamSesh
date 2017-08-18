@@ -46,9 +46,9 @@ export default class Calendar extends Component {
   }
   render() {
     return (
-      <div className="container">
+      <div className="container calendar">
         <BigCalendar
-          style={{ style, height: '600px' }}
+          style={{ style }}
           events={this.state.events}
           defaultDate={new Date()}
         />

@@ -60,7 +60,7 @@ class GroupList extends React.Component {
     const groups = this.filterGroups();
     return this.state.groupsFetched ?
     (<table className="table table-striped" >
-      <thead style={{ fontWeight: 'bold', color: 'white', backgroundColor: '#6A97B0' }}>
+      <thead className="tableHeader">
         <tr>
           <td className="col-md-1">Inst.</td>
           <td className="col-md-1">Genre</td>
