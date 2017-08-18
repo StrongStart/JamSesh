@@ -1,6 +1,5 @@
 import React from 'react';
 import firebase from 'firebase';
-import { Link } from 'react-router';
 import TokBoxChat from './VideoChat.jsx';
 
 export class VideoChatContainer extends React.Component {
@@ -17,26 +16,25 @@ export class VideoChatContainer extends React.Component {
     firebase.database().ref('logged/').on('value', (snapshot) => {
       const currentUsers = snapshot.val();
       if (currentUsers != null) {
+        const loggedIn = [];
+        for (var key in currentUsers) {
+          loggedIn.push(key);
+        }
         this.setState({
-          users: currentUsers,
+          users: loggedIn,
         });
       }
     });
   }
   video(user) {
-    // console.log(user);
     this.setState({
       showVideo: true,
       chosen: user,
     });
   }
-
   render() {
-    const loggedIn = [];
-    for (var key in this.state.users) {
-      loggedIn.push(key);
-    }
-    const loggedUsers = loggedIn.map(user => {
+    console.log(this.state.users);
+    const loggedUsers = this.state.users.map(user => {
       return (<div onClick={this.video.bind(null, user)} key={user}><strong>{user}</strong></div>);
     });
     return (
@@ -45,15 +43,8 @@ export class VideoChatContainer extends React.Component {
           <div className="logged">Who's Logged In? <br/> {loggedUsers}</div>
         </div>
         <div>
-          {/* <iframe
-            src="https://tokbox.com/embed/embed/ot-embed.js?embedId=7f122061-a137-4a5f-8e12-90adc74dd8e4&room=DEFAULT_ROOM&iframe=true">
-          </iframe> */}
-        </div>
-        <div>
           {this.state.showVideo ?
-            <TokBoxChat props={this.state.chosen}>
-            </TokBoxChat> :
-            null
+            <TokBoxChat props={this.state.chosen} /> : null
           }
         </div>
       </div>
