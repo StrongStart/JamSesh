@@ -97,7 +97,7 @@ class SignIn extends React.Component {
           Need an account? <Link to="sign-up">Sign up!</Link>
         </div>
         <div>
-          <img alt="JamSesh" style={this.imgStyle} className="col-md-4 pull-right" src="http://i67.tinypic.com/2ld9iza.png" />
+          <img alt="JamSesh" className="imgStyle col-md-4 pull-right" src="http://i67.tinypic.com/2ld9iza.png" />
         </div>
       </div>
     );

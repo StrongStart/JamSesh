@@ -79,29 +79,18 @@ class PrivateChat extends Component {
   render () {
 
     const currentMessage = this.state.messages.map((message, i) => {
-
-
-      const messageStyle = {
-        padding: 5,
-        borderRadius: 10,
-        margin: "auto"
-      }
-
-      i % 2 === 0 ? messageStyle.backgroundColor = "MintCream" : messageStyle.backgroundColor = "Gainsboro"
-
       return (
-        <div style={messageStyle}><strong>{message.user}</strong>: {message.text}</div>
-
+        <div className="messageStyle"><strong>{message.user}</strong>: {message.text}</div>
       )
     });
     return (
-      <div style={chatStyles.chat}>
+      <div className="chat">
       <div>
-        <div id="messages" style={chatStyles.messages}>
+        <div id="messages" className="messages">
           {currentMessage.slice(-80)}
         </div>
 
-        <div style={chatStyles.input} id="chat-input">
+        <div className="input" id="chat-input">
         <input onChange={this.updateMessage} onKeyDown={this.add.bind(this)} type="text" placeholder="Sexy Placeholder" value={this.state.message}/>
         <button onClick={this.submitMessage}>Send</button>
         </div>
@@ -111,37 +100,4 @@ class PrivateChat extends Component {
   }
 }
 
-const chatStyles = {
-  messages: {
-    padding: 8,
-    backgroundColor: "#F0F8FF",
-    fontFamily: "Arial, Helvetica, sans-serif",
-    height: 300,
-    borderRadius: 10,
-    overflow: "auto",
-    display: "inline-block"
-
-  },
-  input: {
-    padding: 15,
-    borderRadius: 10
-  },
-  chat: {
-    bottomPadding: 30,
-    topPadding: 10
-  },
-  logged: {
-    borderWidth: 1,
-    borderStyle: "solid",
-    verticalAlign: "top",
-    padding: 5,
-    marginLeft: 10,
-    backgroundColor: "LightBlue",
-    borderRadius: 10,
-    width: "30%",
-    display: "inline-block",
-    float: "top"
-  }
-}
-
-export default PrivateChat
+export default PrivateChat;

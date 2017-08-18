@@ -55,30 +55,16 @@ class GroupListItem extends React.Component {
 
           <br />
           <img onClick={this.handleMessageClick} alt="Message" src="https://www.rcuniverse.com/images/email-icon.jpg" />
-          <div style={popChat}>{ this.state.showChat ? <PrivateChat id={this.props.item.id}/> : ''} </div>
+          <div className="popChat">{this.state.showChat ? <PrivateChat id={this.props.item.id}/> : ''} </div>
         </td>
         <tr>
-          <div style={styles.popChat}>
-            { this.state.showResults ? <PrivateChat /> : null }
+          <div className="popChat">
+            {this.state.showResults ? <PrivateChat /> : null}
           </div>
         </tr>
       </tr>
     );
   }
-}
-const styles = {
-  popChat: {
-    position: 'fixed',
-    bottom: '0%',
-    marginLeft: 100,
-    zIndex: 5,
-  },
-};
-
-const popChat = {
-  position: 'fixed',
-  bottom: '0%',
-  zIndex: 5
 }
 
 export default GroupListItem;

@@ -2,9 +2,9 @@ import { GoogleMap, InfoWindow, Marker, withGoogleMap } from 'react-google-maps'
 import { default as React, Component } from 'react';
 import firebase from 'firebase';
 import geocoder from 'google-geocoder';
-// import note from './note1.png';
+import { API_KEY } from '../GoogleConfig.js';
 
-const googleMapUrl = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyAEcsBoANLQ0cs7xmx0UJXpdLRLOiFHGps';
+const googleMapUrl = `https://maps.googleapis.com/maps/api/js?key=${API_KEY}`;
 
 const SimpleGoogleMap = withGoogleMap(props => (
   <GoogleMap
@@ -70,7 +70,7 @@ export default class Map extends Component {
             const name = el[prop].name;
             const loc = el[prop].loc;
             const geo = geocoder({
-              key: 'AIzaSyAEcsBoANLQ0cs7xmx0UJXpdLRLOiFHGps',
+              key: API_KEY,
             });
             geo.find(loc, (err, res) => {
               if (err) {
@@ -128,10 +128,10 @@ export default class Map extends Component {
     return (
       <SimpleGoogleMap
         containerElement={
-          <div style={{ width: '100%', height: 200 }} />
+          <div className="mapContainer" />
         }
         mapElement={
-          <div style={{ width: '100%', height: 300 }} />
+          <div className="mapMap" />
         }
         onMarkerClick={this.handleMarkerClick}
         onCloseClick={this.handleCloseClick}

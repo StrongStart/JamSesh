@@ -8,11 +8,13 @@ import CreateGroup from './CreateGroup.jsx';
 import Inbox from './Inbox.jsx';
 import Redirect from './Redirect.jsx';
 import VideoChatContainer from './VideoChatContainer.jsx';
+import Calendar from './Calendar.jsx';
 
 const App = () => (
   <Router history={browserHistory}>
     <Route path="/" component={MainContainer}>
       <IndexRoute component={Home} />
+      <Route path="calendar" component={Calendar} />
       <Route path="sign-in" component={SignIn} />
       <Route path="video-chat" component={VideoChatContainer} />
       <Route path="sign-up" component={SignUp} />
