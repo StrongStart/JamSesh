@@ -3,9 +3,7 @@ import BigCalendar from 'react-big-calendar';
 import style from 'react-big-calendar/lib/css/react-big-calendar.css';
 import moment from 'moment';
 import axios from 'axios';
-
-const CALENDAR_ID = 'lfhaqtrds93ei95e6g7qrbf0no%40group.calendar.google.com';
-const API_KEY = 'AIzaSyAEcsBoANLQ0cs7xmx0UJXpdLRLOiFHGps';
+import { CALENDAR_ID, API_KEY } from '../GoogleConfig.js';
 const url = `https://www.googleapis.com/calendar/v3/calendars/${CALENDAR_ID}/events?key=${API_KEY}`;
 
 
@@ -32,9 +30,11 @@ export default class Calendar extends Component {
     .then((res) => {
       const events = [];
       res.data.items.forEach(event => {
+        const start = new Date(event.start.date || event.start.dateTime);
+        const end = new Date(event.end.date || event.end.dateTime);
         events.push({
-          start: event.start.date || event.start.dateTime,
-          end: event.end.date || event.end.dateTime,
+          start,
+          end,
           title: event.summary,
         });
       });
@@ -50,6 +50,7 @@ export default class Calendar extends Component {
         <BigCalendar
           style={{ style, height: '600px' }}
           events={this.state.events}
+          defaultDate={new Date()}
         />
       </div>
     );
