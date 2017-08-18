@@ -9,11 +9,3 @@ const config = {
 
 export default config;
 
-// MOVE THESE !!!!!!!!!!!
-// api key and secret
-// 45941162
-
-// 0bb571e113810d2e9f6614b1e271928100a4b80f
-
-{/* <iframe src="https://tokbox.com/embed/embed/ot-embed.js?embedId=7f122061-a137-4a5f-8e12-90adc74dd8e4&room=DEFAULT_ROOM&iframe=true" width="400px" height="400px" ></iframe> */}
-
