@@ -37,6 +37,9 @@ class Navbar extends React.Component {
                 <Link className="dark button" to="/"><span>Home</span></Link>
               </li>
               <li>
+                <Link className="dark button" to="calendar"><span>Calendar</span></Link>
+              </li>
+              <li>
                 <Link className="dark button" to="create-group"><span>Create Group</span></Link>
               </li>
               <li>
@@ -65,6 +68,9 @@ class Navbar extends React.Component {
             <ul className="nav nav-pills">
               <li>
                 <Link className="dark button" to="/"><span>Home</span></Link>
+              </li>
+              <li>
+                <Link className="dark button" to="calendar"><span>Calendar</span></Link>
               </li>
               <li>
                 <Link className="dark button" to="sign-in"><span>Sign in</span></Link>
