@@ -43,7 +43,7 @@ class Navbar extends React.Component {
                 <Link className="dark button" to="create-group"><span>Create Group</span></Link>
               </li>
               <li>
-                <Link className="dark button" to="video-chat"><span>VideoChat</span></Link>
+                <Link className="dark button" to="video-chat"><span>Live Jam</span></Link>
               </li>
               <li>
                 <Link className="dark button" to="inbox">
@@ -55,7 +55,9 @@ class Navbar extends React.Component {
             <ul className="nav navbar-right nav-pills col-md-4">
               <li>
                 <div>
-                  Hello, {firebase.auth().currentUser.displayName}!
+                  Hello, {
+                    firebase.auth().currentUser.displayName[0].toUpperCase() +
+                    firebase.auth().currentUser.displayName.slice(1)}!
                 </div>
               </li>
               <li>

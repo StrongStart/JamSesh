@@ -51,13 +51,33 @@ body {
   border-width: 1px;
   border-style: solid;
   vertical-align: top;
-  padding: 5pc;
+  padding: 5px;
   margin-left: 10px;
   background-color: LightBlue;
   border-radius: 10px;
   width: 30%;
   display: inline-block;
   float: top;
+}
+
+#videoLogged {
+  background-color: darkblue;
+  font-size: xx-large;
+  padding: 0px;
+}
+
+.videoChat {
+  border: 3px solid darkblue; 
+  height: 600px;
+}
+
+.iframe {
+  width: 700px;
+  height: 500px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .messageStyle {
@@ -67,6 +87,14 @@ body {
   background-color: MintCream;
 }
 
+.videoWait {
+  border: 3px solid white; 
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 .map {
   padding: 50px;
 }
@@ -74,7 +102,6 @@ body {
 .groupList {
   max-height: 400px;
   overflow-y: scroll;
-
 }
 
 .chatHeader {
@@ -83,7 +110,7 @@ body {
     font-size: xx-large;
     font-family: Arial;
     border-radius: 10px;
-    padding: 10px;
+    padding: 1px;
     margin-bottom: 5px;
     width: 170px;
 }

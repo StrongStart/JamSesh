@@ -33,19 +33,26 @@ export class VideoChatContainer extends React.Component {
     });
   }
   render() {
-    console.log(this.state.users);
-    const loggedUsers = this.state.users.map(user => {
-      return (<div onClick={this.video.bind(null, user)} key={user}><strong>{user}</strong></div>);
-    });
+    const loggedUsers = this.state.users.map(user => (
+      <div>
+        <button
+          className="messageStyle"
+          onClick={this.video.bind(null, user)} key={user}>
+          <h2><strong>{user.toUpperCase()}</strong></h2>
+        </button>< br />< br />
+      </div>));
     return (
       <div className="chat">
-        <div>
-          <div className="logged">Who's Logged In? <br/> {loggedUsers}</div>
+        <div className="col-md-4">
+          <h2>Who's Available To Jam Live?</h2>
+          <h4>Click A Name To Jam Together!</h4>
+          <div>{loggedUsers}</div>
         </div>
         <div>
-          {this.state.showVideo ?
-            <TokBoxChat props={this.state.chosen} /> : null
-          }
+          <div className="videoChat col-md-8">
+            {this.state.showVideo ? <TokBoxChat props={this.state.chosen} /> :
+              <h1 className="videoWait">Please Choose A User To Live Jam With</h1>}
+          </div>
         </div>
       </div>
     );
