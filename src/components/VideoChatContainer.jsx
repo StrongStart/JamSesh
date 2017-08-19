@@ -1,6 +1,5 @@
 import React from 'react';
 import firebase from 'firebase';
-import { Link } from 'react-router';
 import TokBoxChat from './VideoChat.jsx';
 
 export class VideoChatContainer extends React.Component {
@@ -17,44 +16,43 @@ export class VideoChatContainer extends React.Component {
     firebase.database().ref('logged/').on('value', (snapshot) => {
       const currentUsers = snapshot.val();
       if (currentUsers != null) {
+        const loggedIn = [];
+        for (var key in currentUsers) {
+          loggedIn.push(key);
+        }
         this.setState({
-          users: currentUsers,
+          users: loggedIn,
         });
       }
     });
   }
   video(user) {
-    // console.log(user);
     this.setState({
       showVideo: true,
       chosen: user,
     });
   }
-
   render() {
-    const loggedIn = [];
-    for (var key in this.state.users) {
-      loggedIn.push(key);
-    }
-    const loggedUsers = loggedIn.map(user => {
-      return (<div onClick={this.video.bind(null, user)} key={user}><strong>{user}</strong></div>);
-    });
+    const loggedUsers = this.state.users.map(user => (
+      <div>
+        <button
+          className="messageStyle"
+          onClick={this.video.bind(null, user)} key={user}>
+          <h2><strong>{user.toUpperCase()}</strong></h2>
+        </button>< br />< br />
+      </div>));
     return (
       <div className="chat">
-        <div>
-          <div className="logged">Who's Logged In? <br/> {loggedUsers}</div>
+        <div className="col-md-4">
+          <h2>Who's Available To Jam Live?</h2>
+          <h4>Click A Name To Jam Together!</h4>
+          <div>{loggedUsers}</div>
         </div>
         <div>
-          {/* <iframe
-            src="https://tokbox.com/embed/embed/ot-embed.js?embedId=7f122061-a137-4a5f-8e12-90adc74dd8e4&room=DEFAULT_ROOM&iframe=true">
-          </iframe> */}
-        </div>
-        <div>
-          {this.state.showVideo ?
-            <TokBoxChat props={this.state.chosen}>
-            </TokBoxChat> :
-            null
-          }
+          <div className="videoChat col-md-8">
+            {this.state.showVideo ? <TokBoxChat props={this.state.chosen} /> :
+              <h1 className="videoWait">Please Choose A User To Live Jam With</h1>}
+          </div>
         </div>
       </div>
     );

@@ -22,8 +22,6 @@ exports.sendEmailConfirmation = functions.database.ref('/messages/{uid}').onWrit
   mailOptions.subject = `Hi jamsesh user ${toUser}`;
   mailOptions.text = 'you have a new message on jamesh';
   return mailTransport.sendMail(mailOptions).then(() => {
-    console.log('New unsubscription confirmation email sent to:', toUserEmail);
   }).catch(error => {
-    console.error('There was an error while sending the email:', error);
   });
 });
