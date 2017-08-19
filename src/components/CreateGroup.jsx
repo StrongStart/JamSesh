@@ -1,25 +1,45 @@
 import React from 'react';
 import firebase from 'firebase';
 import Validation from 'react-validation';
-// import Navbar from './Navbar.jsx';
-// import validator from 'validator';
 import { browserHistory } from 'react-router';
+import DatePicker from 'react-datepicker';
+import moment from 'moment';
+import 'react-datepicker/dist/react-datepicker.css';
+import Geosuggest from 'react-geosuggest';
+
 Object.assign(Validation.rules, {
   required: {
     rule: value => value.toString().trim(),
     hint: () => <div className="form-error is-visible alert-danger">This field is required!</div>,
   },
 });
+
 class CreateGroup extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       user: firebase.auth().currentUser.displayName,
+      startDate: moment(),
+      location: '',
     };
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.onSuggestSelection = this.onSuggestSelection.bind(this);
   }
 
   componentDidMount() {
+  }
+
+  handleChange(date) {
+    this.setState({
+      startDate: date,
+    });
+  }
+  onSuggestSelection(suggest) {
+    console.log(suggest);
+    this.setState({
+      location: suggest,
+    });
   }
 
   handleSubmit(event) {
@@ -30,7 +50,7 @@ class CreateGroup extends React.Component {
       instrument: event.target.instrument.value,
       name: event.target.name.value,
       genre: event.target.genre.value,
-      loc: event.target.loc.value,
+      loc: this.state.location,
       avail: event.target.avail.value,
       details: event.target.details.value,
     };
@@ -71,30 +91,32 @@ class CreateGroup extends React.Component {
             />
           </div>
           <div className="form-group">
-            <Validation.components.Input
-              className="form-control"
-              value=""
-              placeholder="Location"
-              name="loc"
-              validations={['required']}
-            />
-          </div>
-          <div className="form-group">
-            <Validation.components.Input
-              className="form-control"
-              value=""
-              placeholder="Availability"
-              name="avail"
-              validations={['required']}
-            />
-          </div>
-          <div className="form-group">
             <Validation.components.Textarea
               className="form-control"
               value=""
               placeholder="Details"
               name="details"
               validations={['required']}
+            />
+          </div>
+          <div className="form-group">
+            <DatePicker
+              selected={this.state.startDate}
+              onChange={this.handleChange}
+              withPortal
+              showMonthDropdown
+              name="avail"
+              value={this.state.startDate}
+              className="form-control"
+            />
+          </div>
+          <div className="form-group">
+            <Geosuggest
+              className="form-control"
+              placeholder="Location"
+              types={['establishment', 'geocode']}
+              onChange={this.onSuggestSelection}
+              onEnter={this.onSuggestSelection}
             />
           </div>
           <div>
