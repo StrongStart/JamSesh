@@ -24,21 +24,20 @@ class CreateGroup extends React.Component {
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.onSuggestSelection = this.onSuggestSelection.bind(this);
+    this.onEventSelect = this.onEventSelect.bind(this);
   }
 
   componentDidMount() {
   }
 
+  onEventSelect(suggest) {
+    this.setState({
+      location: suggest.label,
+    });
+  }
   handleChange(date) {
     this.setState({
       startDate: date,
-    });
-  }
-  onSuggestSelection(suggest) {
-    console.log(suggest);
-    this.setState({
-      location: suggest,
     });
   }
 
@@ -100,6 +99,13 @@ class CreateGroup extends React.Component {
             />
           </div>
           <div className="form-group">
+            <Geosuggest
+              placeholder="Location"
+              types={['establishment', 'geocode']}
+              onSuggestSelect={this.onEventSelect}
+            />
+          </div>
+          <div className="form-group">
             <DatePicker
               selected={this.state.startDate}
               onChange={this.handleChange}
@@ -108,15 +114,6 @@ class CreateGroup extends React.Component {
               name="avail"
               value={this.state.startDate}
               className="form-control"
-            />
-          </div>
-          <div className="form-group">
-            <Geosuggest
-              className="form-control"
-              placeholder="Location"
-              types={['establishment', 'geocode']}
-              onChange={this.onSuggestSelection}
-              onEnter={this.onSuggestSelection}
             />
           </div>
           <div>
