@@ -25,5 +25,7 @@ export class TokBoxChat extends React.Component {
       );
   }
 }
+
+
 export default TokBoxChat;
 
