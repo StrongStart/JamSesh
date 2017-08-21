@@ -22,7 +22,7 @@
 1. [Usage](#Usage)
 1. [Requirements](#requirements)
 1. [Installing Dependencies](#installing-dependencies)
-1. [How it Works] (#how-it-works)
+1. [How it Works](#how-it-works)
 1. [Team](#team)
 1. [Contributing](#contributing)
 1. [Pictures](#pictures)
