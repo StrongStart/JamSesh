@@ -6,6 +6,8 @@ import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import 'react-datepicker/dist/react-datepicker.css';
 import Geosuggest from 'react-geosuggest';
+import axios from 'axios';
+import { API_KEY, CALENDAR_ID, CLIENT_ID } from '../GoogleConfig.js';
 
 Object.assign(Validation.rules, {
   required: {
@@ -34,7 +36,9 @@ class CreateGroup extends React.Component {
     this.setState({
       location: suggest.label,
     });
+    this.request.execute(e => console.log(`event created: ${e.htmlLink}`));
   }
+
   handleChange(date) {
     this.setState({
       startDate: date,
@@ -53,10 +57,33 @@ class CreateGroup extends React.Component {
       avail: event.target.avail.value,
       details: event.target.details.value,
     };
+    this.addToCalendar(newGroup);
     this.props.firebaseApp.database().ref(`groups/${event.target.name.value}`).push(newGroup);
     groups.push(newGroup);
     browserHistory.push('/');
   }
+  addToCalendar(group) {
+    console.log('add', group);
+    const event = {
+      summary: `${group.owner} from ${group.name} seeking ${group.instrument}`,
+      location: group.loc,
+      description: group.details,
+      start: {
+        date: group.avail,
+      },
+      end: {
+        dateTime: group.avail,
+      },
+    };
+    const headers = {
+      scope: 'https://www.googleapis.com/auth/calendar',
+      clientId: CLIENT_ID,
+    };
+    axios.post(`https://www.googleapis.com/calendar/v3/calendars/${CALENDAR_ID}/events`, event, headers)
+      .then(res => console.log('success', res))
+      .catch(err => console.log('error', err));
+  }
+
   render() {
     return (
       <div className="container">
