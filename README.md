@@ -10,6 +10,13 @@
   - __Scrum Master__: Marina Cerame
   - __Development Team Members__: Chris Dakin, Marina Cerame
 
+##Legacy Team
+
+  - __Product Owner__: Jacques Metevier
+  - __Scrum Master__: Marina McGrath
+  - __Development Team Members__: Jacques Metevier, Marina McGrath
+
+
 ## Table of Contents
 
 1. [Usage](#Usage)
@@ -28,6 +35,9 @@
 - Firebase 3.6.4
 - React 15.4.1
 - Webpack 1.14.0
+
+## Tech Stack
+![Tech Stack](techstack.png)
 
 ### Installing Dependencies
 
