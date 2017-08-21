@@ -5,3 +5,4 @@ app/bower_components/
 .env
 */firebaseConfig.js
 dist/bundle.js
+*/GoogleConfig.js

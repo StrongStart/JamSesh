@@ -72,7 +72,7 @@ body {
 }
 
 .videoChat {
-  border: 3px solid darkblue; 
+  border: 3px solid darkblue;
   height: 600px;
 }
 
@@ -152,10 +152,9 @@ body {
 }
 .geosuggest {
   font-size: 18px;
-  font-size: 1rem;
+  font-size: 1.5rem;
   position: relative;
-  width: 50%;
-  margin: 1em auto;
+  width: 100%;
   text-align: left;
 }
 .geosuggest__input {
@@ -186,6 +185,11 @@ body {
   z-index: 5;
   -webkit-transition: max-height 0.2s, border 0.2s;
           transition: max-height 0.2s, border 0.2s;
+}
+.geosuggest__suggests--hidden {
+  max-height: 0;
+  overflow: hidden;
+  border-width: 0;
 }
 .geosuggest__item {
   font-size: 18px;

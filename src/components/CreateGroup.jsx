@@ -6,6 +6,8 @@ import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import 'react-datepicker/dist/react-datepicker.css';
 import Geosuggest from 'react-geosuggest';
+import axios from 'axios';
+import { API_KEY, CALENDAR_ID, CLIENT_ID } from '../GoogleConfig.js';
 
 Object.assign(Validation.rules, {
   required: {
@@ -24,21 +26,22 @@ class CreateGroup extends React.Component {
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.onSuggestSelection = this.onSuggestSelection.bind(this);
+    this.onEventSelect = this.onEventSelect.bind(this);
   }
 
   componentDidMount() {
   }
 
+  onEventSelect(suggest) {
+    this.setState({
+      location: suggest.label,
+    });
+    this.request.execute(e => console.log(`event created: ${e.htmlLink}`));
+  }
+
   handleChange(date) {
     this.setState({
       startDate: date,
-    });
-  }
-  onSuggestSelection(suggest) {
-    console.log(suggest);
-    this.setState({
-      location: suggest,
     });
   }
 
@@ -54,10 +57,33 @@ class CreateGroup extends React.Component {
       avail: event.target.avail.value,
       details: event.target.details.value,
     };
+    this.addToCalendar(newGroup);
     this.props.firebaseApp.database().ref(`groups/${event.target.name.value}`).push(newGroup);
     groups.push(newGroup);
     browserHistory.push('/');
   }
+  addToCalendar(group) {
+    console.log('add', group);
+    const event = {
+      summary: `${group.owner} from ${group.name} seeking ${group.instrument}`,
+      location: group.loc,
+      description: group.details,
+      start: {
+        date: group.avail,
+      },
+      end: {
+        dateTime: group.avail,
+      },
+    };
+    const headers = {
+      scope: 'https://www.googleapis.com/auth/calendar',
+      clientId: CLIENT_ID,
+    };
+    axios.post(`https://www.googleapis.com/calendar/v3/calendars/${CALENDAR_ID}/events`, event, headers)
+      .then(res => console.log('success', res))
+      .catch(err => console.log('error', err));
+  }
+
   render() {
     return (
       <div className="container">
@@ -100,6 +126,13 @@ class CreateGroup extends React.Component {
             />
           </div>
           <div className="form-group">
+            <Geosuggest
+              placeholder="Location"
+              types={['establishment', 'geocode']}
+              onSuggestSelect={this.onEventSelect}
+            />
+          </div>
+          <div className="form-group">
             <DatePicker
               selected={this.state.startDate}
               onChange={this.handleChange}
@@ -108,15 +141,6 @@ class CreateGroup extends React.Component {
               name="avail"
               value={this.state.startDate}
               className="form-control"
-            />
-          </div>
-          <div className="form-group">
-            <Geosuggest
-              className="form-control"
-              placeholder="Location"
-              types={['establishment', 'geocode']}
-              onChange={this.onSuggestSelection}
-              onEnter={this.onSuggestSelection}
             />
           </div>
           <div>
