@@ -10,7 +10,7 @@
   - __Scrum Master__: Marina Cerame
   - __Development Team Members__: Chris Dakin, Marina Cerame
 
-##Legacy Team
+## Legacy Team
 
   - __Product Owner__: Jacques Metevier
   - __Scrum Master__: Marina McGrath
@@ -22,6 +22,7 @@
 1. [Usage](#Usage)
 1. [Requirements](#requirements)
 1. [Installing Dependencies](#installing-dependencies)
+1. [How it Works] (#how-it-works)
 1. [Team](#team)
 1. [Contributing](#contributing)
 1. [Pictures](#pictures)
@@ -29,12 +30,11 @@
 
 1. NPM Install
 2. NPM Start to run locally
+3. NPM Run deploy to deploy once firebase account is setup
 
 ## Requirements
 
-- Firebase 3.6.4
-- React 15.4.1
-- Webpack 1.14.0
+Node ^8.1.0
 
 ## Tech Stack
 ![Tech Stack](techstack.png)
@@ -44,6 +44,17 @@
 From within the root directory:
 
 npm install
+
+## How It Works
+
+A band member can create a profile and go to "Create Group" to make a posting. There they can include the details of who they're looking for. The location input will suggest nearby known addresses to ensure correct display of address. Once created, the posting will show up on the homepage on the map and with the details below.
+
+### Live Jam
+
+Once each user who wants to Live Jam has an account, simply go to Live Jam and click the name of the other user to open live video chat where you can jam together.
+
+### Messages
+When messaging using Inbox, the other user will receive an email notification of the new message.
 
 ## Contributing
 
