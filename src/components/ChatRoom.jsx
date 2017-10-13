@@ -107,12 +107,12 @@ class ChatRoom extends Component {
     return (
       <div className="chat">
         <div>
-          <div id="messages" className="messages">
+          <div className="logged">Who's Logged In? <br /> {loggedUsers}</div>
+          <div className="messages">
             {currentMessage.slice(-80)}
           </div>
-          <div className="logged">Who's Logged In? <br /> {loggedUsers}</div>
           <div className="input" id="chat-input">
-            <input onChange={this.updateMessage} onKeyDown={this.add.bind(this)} type="text" placeholder="Sexy Placeholder" value={this.state.message}/>
+            <input onChange={this.updateMessage} onKeyDown={this.add.bind(this)} type="text" placeholder="Type New Message Here" value={this.state.message}/>
             <button onClick={this.submitMessage}>Send</button>
           </div>
         </div>

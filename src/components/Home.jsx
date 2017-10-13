@@ -13,7 +13,7 @@ export default class Home extends React.Component {
       query: null,
       groups: [],
       sendTo: null,
-      showSearch: false,
+      showSearch: true,
     };
     this.runSearch = this.runSearch.bind(this);
     this.setSendTo = this.setSendTo.bind(this);
@@ -40,30 +40,41 @@ export default class Home extends React.Component {
 
   render() {
     return (
-      <div className="container">
-        <h2>JamSesh</h2>
-        <div className="col-md-8">
-          {firebase.auth().currentUser ?
-            <strong>Welcome, {firebase.auth().currentUser.displayName}!</strong> :
-            <strong>Welcome! Please log in or sign up!</strong>}
-          <Map />
-          <div className="buffer"></div>
-          <div className="groupList" >
-            <GroupList query={this.state.query} sendTo={this.setSendTo} />
+      <div className="container" className="outline">
+        <div className="col-md-12">
+          <div className="col-md-3">
+            <img
+              className="jamsesh"
+              className="imgStyle image-responsive"
+              src="http://i67.tinypic.com/2ld9iza.png" alt="jam"
+            />
+          </div>
+          <div className="col-md-9">
+            <h1>Find Your New Favorite Jam Today</h1>
           </div>
         </div>
-        <div className="col-md-4 bg-info">
-          <button onClick={this.handleSearchClick}>Filtered Search</button>
-          {this.state.showSearch ? this.search : ''}
-        </div>
-        <div className="col-md-8">
-          <div className="chatHeader">Jam Chat!</div>
-          <div className="row">
-            <ChatRoom />
+        <div className="col-md-12">
+          <div className="col-md-7">
+            {firebase.auth().currentUser ?
+              <strong>Welcome, {firebase.auth().currentUser.displayName}!</strong> :
+              <strong>Welcome! Please log in or sign up!</strong>}
+            <Map />
+            <div className="buffer"></div>
+            <div className="groupList" >
+              <GroupList query={this.state.query} sendTo={this.setSendTo} />
+            </div>
           </div>
-        </div>
-        <div className="col-md-4">
-          <img className="imgStyle image-responsive" src="http://i67.tinypic.com/2ld9iza.png" alt="jam" />
+          <div className="col-md-5 bg-info">
+            <button onClick={this.handleSearchClick}>Filtered Search</button>
+            {this.state.showSearch ? this.search : ''}
+            <h1></h1>
+            <div>
+              <div className="chatHeader">Jam Chat!</div>
+              <div className="row">
+                <ChatRoom />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     );
