@@ -13,7 +13,8 @@ class MainContainer extends React.Component {
   }
   logOut() {
     const username = firebase.auth().currentUser.displayName;
-    firebase.database().ref('logged/').child(username).remove();
+    firebase.database().ref('logged/').child(username)
+    .remove();
     firebase.auth().signOut();
     this.forceUpdate();
   }
